@@ -486,7 +486,7 @@ function renderCourts(weekKey, fullDate) {
     // Action buttons
     let actions="";
     if(iOwn){
-      actions+=`<button class="btn btn-yellow" onclick="leaveCourtUI('${weekKey}','${courtId}')">👑 You own this court — tap to give up ownership</button>`;
+      actions+=`<button class="btn btn-yellow" onclick="showGiveUpOwnership('${weekKey}','${courtId}','${num}')">👑 You own this court — transfer ownership</button>`;
       actions+=`<button class="btn btn-indigo" onclick="showChangeCourtNum('${weekKey}','${courtId}','${num}')">✏️ Change Court Number</button>`;
       actions+=`<button class="btn btn-red" onclick="showCancelCourt('${weekKey}','${courtId}','${num}')">🚫 Cancel This Court Reservation</button>`;
     } else if(isMine){
@@ -535,6 +535,33 @@ window.leaveCourtUI = async function(weekKey,courtId){
 };
 
 // ── CHANGE COURT NUMBER ───────────────────────────────
+window.showGiveUpOwnership = function(weekKey,courtId,num){
+  const data=courtsData[courtId]||{};
+  const others=(data.players||[]).filter(p=>p!==currentPlayer);
+  if(!others.length){
+    if(window.confirm("No other players on this court. Remove your reservation entirely?")){
+      const newPlayers=(data.players||[]).filter(p=>p!==currentPlayer);
+      setDoc(doc(db,"weeks",weekKey),{[courtId]:{owner:null,players:newPlayers}},{merge:true});
+    }
+    return;
+  }
+  modalContext={weekKey,courtId,num};
+  document.getElementById("transfer-sub").textContent="You're giving up ownership of Court "+num+". Who should be the new owner?";
+  document.getElementById("transfer-list").innerHTML=others.map(p=>`
+    <div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">
+      ${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span>
+    </div>`).join("");
+  document.getElementById("transfer-modal").classList.add("open");
+};
+
+window.confirmTransferAndLeave = async function(toPlayer){
+  const {weekKey,courtId}=modalContext;
+  const data=courtsData[courtId]||{};
+  await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,owner:toPlayer}},{merge:true});
+  closeModal("transfer-modal");
+  showToast("Ownership transferred to "+toPlayer);
+};
+
 window.showChangeCourtNum = function(weekKey,courtId,currentNum){
   modalContext={weekKey,courtId,currentNum};
   document.getElementById("change-court-sub").textContent=`Currently Court ${currentNum}. Enter the new court number.`;
@@ -569,23 +596,14 @@ window.confirmChangeCourtNum = async function(){
 
 // ── TRANSFER OWNERSHIP ────────────────────────────────
 window.showTransferToPlayer = function(weekKey,courtId,toPlayer){
-  modalContext={weekKey,courtId,toPlayer};
+  modalContext={weekKey,courtId};
   const num=courtId.replace("court","");
-  document.getElementById("transfer-sub").textContent=`Transfer ownership of Court ${num} to ${toPlayer}?`;
-  // Show single confirm UI via transfer-list
+  document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to "+toPlayer+"?";
   document.getElementById("transfer-list").innerHTML=`
-    <div class="player-pick-btn" onclick="confirmTransfer()">
+    <div class="player-pick-btn" onclick="confirmTransferAndLeave('${toPlayer}')">
       ${av(toPlayer,32)}<span class="ppname">${toPlayer}</span><span style="color:#fde68a;font-size:18px">👑</span>
     </div>`;
   document.getElementById("transfer-modal").classList.add("open");
-};
-
-window.confirmTransfer = async function(){
-  const {weekKey,courtId,toPlayer}=modalContext;
-  const data=courtsData[courtId]||{};
-  await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,owner:toPlayer}},{merge:true});
-  closeModal("transfer-modal");
-  showToast("Ownership transferred to "+toPlayer);
 };
 
 // ── CANCEL COURT ──────────────────────────────────────
