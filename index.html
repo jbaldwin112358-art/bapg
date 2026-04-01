@@ -349,8 +349,9 @@ function renderCourts(weekKey,fullDate){
       const p=nonOwners[i];
       if(p){
         const isMe=p===currentPlayer;
-        const makeOwnerBtn=iOwn&&!isMe?`<button class="sbtn make-owner-btn" onclick="showTransferToPlayer('${weekKey}','${courtId}','${p}')">Make owner</button>`:"";
-        slotsHTML+=`<div class="slot-player${isMe?" me":""}"> ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>${makeOwnerBtn}${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}</div>`;
+        const makeOwnerBtn=iOwn&&!isMe?`<button class="sbtn make-owner-btn" onclick="showTransferToPlayer('${weekKey}','${courtId}','${p}')">👑 Owner</button>`:"";
+        const swapBtn=iOwn&&!isMe?`<button class="sbtn make-owner-btn" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.4);color:#a5b4fc" onclick="showSwapPlayer('${weekKey}','${courtId}','${p}')">🔄 Swap</button>`:"";
+        slotsHTML+=`<div class="slot-player${isMe?" me":""}"> ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>${swapBtn}${makeOwnerBtn}${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}</div>`;
       } else {
         slotsHTML+=`<div class="slot-empty">open slot</div>`;
       }
@@ -467,7 +468,13 @@ window.showGiveUpOwnership=async function(weekKey,courtId,num){
   }
   modalContext={weekKey,courtId,num};
   document.getElementById("transfer-sub").textContent="You're giving up ownership of Court "+num+". Who should be the new owner?";
-  document.getElementById("transfer-list").innerHTML=others.map(p=>`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`).join("");
+  // anyone registered not already on a court (excluding current owner)
+  const allOnCourts=new Set(Object.values(courtsData).flatMap(d=>d.players||[]));
+  const eligible=players.filter(p=>p!==currentPlayer&&!allOnCourts.has(p));
+  const alreadyOn=others; // players already on this court are also eligible
+  const combined=[...new Set([...alreadyOn,...eligible])].filter(p=>p!==currentPlayer);
+  if(!combined.length){showToast("No eligible players to transfer to.");return;}
+  document.getElementById("transfer-list").innerHTML=combined.map(p=>`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`).join("");
   document.getElementById("transfer-modal").classList.add("open");
 };
 
@@ -479,10 +486,14 @@ window.confirmTransferAndLeave=async function(toPlayer){
 };
 
 window.showTransferToPlayer=function(weekKey,courtId,toPlayer){
+  // Show full pool — anyone not already on another court
   modalContext={weekKey,courtId};
   const num=courtId.replace("court","");
-  document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to "+toPlayer+"?";
-  document.getElementById("transfer-list").innerHTML=`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${toPlayer}')">${av(toPlayer,32)}<span class="ppname">${toPlayer}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`;
+  const courtPlayers=(courtsData[courtId]?.players||[]);
+  const allOnCourts=new Set(Object.entries(courtsData).filter(([k])=>k!==courtId).flatMap(([,d])=>d.players||[]));
+  const eligible=players.filter(p=>p!==currentPlayer&&!allOnCourts.has(p));
+  document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to:";
+  document.getElementById("transfer-list").innerHTML=eligible.map(p=>`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`).join("")||'<div style="color:#475569;font-size:13px;padding:8px 0;">No eligible players available.</div>';
   document.getElementById("transfer-modal").classList.add("open");
 };
 
@@ -549,9 +560,41 @@ window.purgeGhostCourts=async function(){
   showToast(cleaned>0?"Removed "+cleaned+" ghost court(s)":"No ghost courts found");
 };
 
+// SWAP PLAYER
+window.showSwapPlayer=function(weekKey,courtId,outPlayer){
+  modalContext={weekKey,courtId,outPlayer};
+  const allOnCourts=new Set(Object.values(courtsData).flatMap(d=>d.players||[]));
+  const eligible=players.filter(p=>!allOnCourts.has(p));
+  document.getElementById("swap-sub").textContent="Replace "+outPlayer+" with:";
+  document.getElementById("swap-list").innerHTML=eligible.map(p=>`<div class="player-pick-btn" onclick="confirmSwap('${p}')">${av(p,32)}<span class="ppname">${p}</span></div>`).join("")||'<div style="color:#475569;font-size:13px;padding:8px 0;">No available players to swap in.</div>';
+  document.getElementById("swap-modal").classList.add("open");
+};
+
+window.confirmSwap=async function(inPlayer){
+  const{weekKey,courtId,outPlayer}=modalContext;
+  const data=courtsData[courtId]||{};
+  let newPlayers=(data.players||[]).map(p=>p===outPlayer?inPlayer:p);
+  // if inPlayer wasn't on the court already, they're now in
+  if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
+  const newOwner=data.owner===outPlayer?data.owner:data.owner; // owner unchanged
+  await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,players:newPlayers}},{merge:true});
+  closeModal("swap-modal");
+  showToast(outPlayer+" swapped out for "+inPlayer);
+};
+
 initDates();
 loadPlayers();
 </script>
 
+<!-- SWAP PLAYER MODAL -->
+
+<div class="modal-overlay" id="swap-modal">
+  <div class="modal">
+    <h2>🔄 Swap Player</h2>
+    <div class="msub" id="swap-sub"></div>
+    <div class="player-pick-list" id="swap-list"></div>
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('swap-modal')">Cancel</button></div>
+  </div>
+</div>
 </body>
 </html>
