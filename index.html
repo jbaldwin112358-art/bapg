@@ -10,22 +10,22 @@
 body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #f1f5f9; }
 
 /* LOGIN */
-#login-screen { min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(150deg,#0f172a 0%,#083d28 100%); }
+#login-screen { min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(150deg,#0c1524 0%,#0a1f38 100%); }
 #login-screen.active { display: flex; }
 .login-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 28px 22px; width: 100%; max-width: 380px; text-align: center; }
 .logo { font-size: 38px; margin-bottom: 4px; }
 .login-card h1 { font-size: 20px; font-weight: 800; color: #f0fdf4; margin-bottom: 2px; }
-.login-card h2 { font-size: 12px; color: #6ee7b7; margin-bottom: 14px; font-weight: 500; }
+.login-card h2 { font-size: 12px; color: #5eead4; margin-bottom: 14px; font-weight: 500; }
 .date-cards { display: flex; gap: 8px; margin-bottom: 20px; }
-.date-card { flex: 1; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px; padding: 10px 8px; text-align: center; }
-.dc-label { font-size: 10px; color: #6ee7b7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.date-card { flex: 1; background: rgba(20,184,166,0.08); border: 1px solid rgba(20,184,166,0.2); border-radius: 12px; padding: 10px 8px; text-align: center; }
+.dc-label { font-size: 10px; color: #5eead4; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
 .dc-day { font-size: 22px; font-weight: 800; color: #f0fdf4; line-height: 1; }
 .dc-month { font-size: 12px; color: #94a3b8; margin-top: 2px; }
-.dc-time { font-size: 11px; color: #6ee7b7; margin-top: 3px; font-weight: 600; }
+.dc-time { font-size: 11px; color: #5eead4; margin-top: 3px; font-weight: 600; }
 .section-label { font-size: 12px; color: #94a3b8; text-align: left; margin-bottom: 8px; font-weight: 600; }
 .player-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; max-height: 220px; overflow-y: auto; }
 .player-btn { background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 8px; color: #cbd5e1; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-.player-btn.selected { background: rgba(16,185,129,0.15); border-color: #10b981; color: #a7f3d0; }
+.player-btn.selected { background: rgba(20,184,166,0.15); border-color: #14b8a6; color: #99f6e4; }
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
 .reservation-section { text-align: left; margin-bottom: 20px; }
 .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -35,52 +35,52 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .res-row { display: flex; align-items: center; gap: 10px; }
 .res-row label { color: #94a3b8; font-size: 13px; white-space: nowrap; }
 .res-row select, .res-row input[type=number] { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px; color: #f0fdf4; font-size: 14px; padding: 7px 10px; font-family: sans-serif; outline: none; width: 80px; }
-.enter-btn { width: 100%; background: linear-gradient(135deg,#059669,#10b981); color: #fff; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: sans-serif; }
+.enter-btn { width: 100%; background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: sans-serif; }
 .enter-btn:disabled { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); cursor: not-allowed; }
 
 /* HEADER */
 .header { background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 20; }
 .header-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 6px; }
 .header-left h1 { font-size: 15px; font-weight: 800; color: #f0fdf4; }
-.header-left h1 span { color: #10b981; }
+.header-left h1 span { color: #14b8a6; }
 .header-left p { font-size: 10px; color: #475569; margin-top: 1px; }
 .header-right { display: flex; align-items: center; gap: 8px; }
-.me-badge { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 20px; padding: 4px 10px; color: #a7f3d0; font-size: 12px; font-weight: 600; }
+.me-badge { background: rgba(20,184,166,0.15); border: 1px solid rgba(20,184,166,0.3); border-radius: 20px; padding: 4px 10px; color: #99f6e4; font-size: 12px; font-weight: 600; }
 .signout-btn { background: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: rgba(255,255,255,0.35); padding: 4px 10px; cursor: pointer; font-size: 11px; font-family: sans-serif; }
 .week-tabs { display: flex; padding: 0 16px; }
 .week-tab { flex: 1; border: none; border-bottom: 2px solid transparent; background: none; color: #475569; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; font-family: sans-serif; padding: 8px 4px; transition: all 0.15s; }
 .week-tab .tab-label { display: block; }
 .week-tab .tab-date { display: block; font-size: 14px; font-weight: 800; color: #334155; margin-top: 1px; }
-.week-tab.active { color: #6ee7b7; border-bottom-color: #10b981; }
+.week-tab.active { color: #5eead4; border-bottom-color: #14b8a6; }
 .week-tab.active .tab-date { color: #f0fdf4; }
 
 /* COURTS */
-.courts-container { padding: 14px 14px 100px; background: linear-gradient(150deg,#0f172a 0%,#083d28 100%); min-height: calc(100vh - 130px); }
-.week-banner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
-.wb-label { font-size: 11px; color: #6ee7b7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.courts-container { padding: 14px 14px 100px; background: linear-gradient(150deg,#0c1524 0%,#0a1f38 100%); min-height: calc(100vh - 130px); }
+.week-banner { background: rgba(20,184,166,0.07); border: 1px solid rgba(20,184,166,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+.wb-label { font-size: 11px; color: #5eead4; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 .wb-date { font-size: 16px; font-weight: 800; color: #f0fdf4; }
 .wb-time { font-size: 12px; color: #94a3b8; }
 .court-card { background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.09); border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
-.court-card.has-res { border-color: rgba(16,185,129,0.35); }
-.court-card.i-own { border-color: #10b981; box-shadow: 0 0 20px rgba(16,185,129,0.12); }
+.court-card.has-res { border-color: rgba(20,184,166,0.35); }
+.court-card.i-own { border-color: #14b8a6; box-shadow: 0 0 20px rgba(20,184,166,0.12); }
 .court-header { display: flex; justify-content: space-between; align-items: center; padding: 13px 14px 10px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .court-title { font-weight: 700; font-size: 15px; color: #f0fdf4; }
 .court-status { font-size: 11px; margin-top: 2px; font-weight: 600; }
-.court-status.open { color: #34d399; }
+.court-status.open { color: #2dd4bf; }
 .court-status.full { color: #fb923c; }
 .court-meta { display: flex; align-items: center; gap: 8px; }
 .court-count { background: rgba(255,255,255,0.07); border-radius: 7px; padding: 3px 9px; color: #94a3b8; font-size: 12px; font-weight: 700; }
 .owner-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .owner-label { font-size: 11px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
-.owner-chip { display: flex; align-items: center; gap: 6px; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); border-radius: 14px; padding: 4px 10px 4px 6px; }
+.owner-chip { display: flex; align-items: center; gap: 6px; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.22); border-radius: 14px; padding: 4px 10px 4px 6px; }
 .owner-chip .oname { font-size: 12px; color: #fde68a; font-weight: 600; }
 .no-res { font-size: 12px; color: #334155; font-style: italic; padding: 10px 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .slots { padding: 10px 12px 8px; display: flex; flex-direction: column; gap: 6px; }
 .slot-empty { height: 36px; border-radius: 18px; border: 1.5px dashed rgba(255,255,255,0.08); display: flex; align-items: center; padding-left: 12px; color: rgba(255,255,255,0.15); font-size: 12px; }
 .slot-player { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 5px 10px 5px 6px; }
-.slot-player.me { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); }
+.slot-player.me { background: rgba(20,184,166,0.08); border-color: rgba(20,184,166,0.2); }
 .slot-player .pname { flex: 1; color: #cbd5e1; font-size: 13px; font-weight: 600; }
-.slot-player.me .pname { color: #a7f3d0; }
+.slot-player.me .pname { color: #99f6e4; }
 .slot-player .sbtn { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.2); font-size: 13px; padding: 0 2px; font-family: sans-serif; }
 .make-owner-btn { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3) !important; border-radius: 8px; cursor: pointer; color: #fde68a; font-size: 11px; padding: 2px 7px; font-family: sans-serif; font-weight: 600; white-space: nowrap; }
 .av { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; flex-shrink: 0; }
@@ -88,9 +88,9 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 /* ACTION BUTTONS */
 .action-area { padding: 8px 12px 14px; display: flex; flex-direction: column; gap: 7px; }
 .btn { width: 100%; border-radius: 9px; padding: 10px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; border: none; }
-.btn-green { background: linear-gradient(135deg,#059669,#10b981); color: #fff; }
+.btn-green { background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; }
 .btn-green:disabled { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.18); cursor: not-allowed; }
-.btn-green-outline { background: rgba(16,185,129,0.08); border: 1px solid #10b981 !important; color: #34d399; }
+.btn-green-outline { background: rgba(20,184,166,0.08); border: 1px solid #14b8a6 !important; color: #2dd4bf; }
 .btn-yellow { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.4) !important; color: #fde68a; }
 .btn-indigo { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.35) !important; color: #a5b4fc; }
 .btn-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35) !important; color: #f87171; }
@@ -110,7 +110,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .modal .btn-row { display: flex; gap: 8px; margin-top: 4px; }
 .modal .btn-row button { flex: 1; padding: 10px; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: sans-serif; border: none; }
 .modal .mbtn-cancel { background: rgba(255,255,255,0.07); color: #94a3b8; }
-.modal .mbtn-confirm { background: linear-gradient(135deg,#059669,#10b981); color: #fff; }
+.modal .mbtn-confirm { background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; }
 .modal .mbtn-red { background: rgba(239,68,68,0.15); color: #f87171; }
 .modal .mbtn-indigo { background: rgba(99,102,241,0.15); color: #a5b4fc; }
 .player-pick-list { display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; margin-bottom: 14px; }
@@ -123,7 +123,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .player-list-item button { background: none; border: none; color: rgba(255,255,255,0.25); font-size: 16px; cursor: pointer; padding: 2px 6px; }
 .add-player-row { display: flex; gap: 8px; }
 .add-player-row input { flex: 1; margin-bottom: 0; }
-.add-player-row button { background: linear-gradient(135deg,#059669,#10b981); color: #fff; border: none; border-radius: 9px; padding: 0 16px; font-weight: 700; cursor: pointer; font-family: sans-serif; white-space: nowrap; }
+.add-player-row button { background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; border: none; border-radius: 9px; padding: 0 16px; font-weight: 700; cursor: pointer; font-family: sans-serif; white-space: nowrap; }
 </style>
 
 </head>
@@ -241,6 +241,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
     </div>
     <div class="btn-row" style="margin-top:14px;">
       <button class="mbtn-cancel" onclick="closeModal('admin-modal')">Done</button>
+      <button class="mbtn-red" onclick="purgeGhostCourts()">🧹 Remove Ghost Courts</button>
     </div>
   </div>
 </div>
@@ -449,6 +450,9 @@ function renderCourts(weekKey, fullDate) {
   }
 
   courtIds.forEach(courtId=>{
+    // Skip ghost courts (no owner, no players)
+    const d=courtsData[courtId]||{};
+    if(!d.owner && !(d.players||[]).length) return;
     const num=courtId.replace("court","");
     const data=courtsData[courtId]||{};
     const owner=data.owner||null;
@@ -535,13 +539,15 @@ window.leaveCourtUI = async function(weekKey,courtId){
 };
 
 // ── CHANGE COURT NUMBER ───────────────────────────────
-window.showGiveUpOwnership = function(weekKey,courtId,num){
+window.showGiveUpOwnership = async function(weekKey,courtId,num){
   const data=courtsData[courtId]||{};
   const others=(data.players||[]).filter(p=>p!==currentPlayer);
   if(!others.length){
     if(window.confirm("No other players on this court. Remove your reservation entirely?")){
-      const newPlayers=(data.players||[]).filter(p=>p!==currentPlayer);
-      setDoc(doc(db,"weeks",weekKey),{[courtId]:{owner:null,players:newPlayers}},{merge:true});
+      const snap=await getDoc(doc(db,"weeks",weekKey));
+      let d=snap.exists()?snap.data():{};
+      delete d[courtId];
+      await setDoc(doc(db,"weeks",weekKey),d);
     }
     return;
   }
@@ -669,6 +675,28 @@ window.addPlayer=async function(){
   renderAdminList(); renderPlayerGrid();
 };
 document.getElementById("new-player-input").addEventListener("keydown",e=>{if(e.key==="Enter")window.addPlayer();});
+
+// ── PURGE GHOST COURTS ───────────────────────────────
+window.purgeGhostCourts = async function(){
+  const keys = getWeekKeys();
+  let cleaned = 0;
+  for (const weekKey of [keys.this, keys.next]) {
+    const snap = await getDoc(doc(db,"weeks",weekKey));
+    if (!snap.exists()) continue;
+    let data = snap.data();
+    let changed = false;
+    for (const courtId of Object.keys(data)) {
+      const d = data[courtId]||{};
+      if (!d.owner && !(d.players||[]).length) {
+        delete data[courtId];
+        changed = true;
+        cleaned++;
+      }
+    }
+    if (changed) await setDoc(doc(db,"weeks",weekKey), data);
+  }
+  showToast(cleaned > 0 ? "Removed "+cleaned+" ghost court(s)" : "No ghost courts found");
+};
 
 // ── INIT ──────────────────────────────────────────────
 initDates();
