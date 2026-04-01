@@ -8,8 +8,6 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #f1f5f9; }
-
-/* LOGIN */
 #login-screen { min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(150deg,#0c1524 0%,#0a1f38 100%); }
 #login-screen.active { display: flex; }
 .login-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 28px 22px; width: 100%; max-width: 380px; text-align: center; }
@@ -29,7 +27,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
 .reservation-section { text-align: left; margin-bottom: 20px; }
 .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.checkbox-row input[type=checkbox] { width: 18px; height: 18px; accent-color: #10b981; cursor: pointer; }
+.checkbox-row input[type=checkbox] { width: 18px; height: 18px; accent-color: #14b8a6; cursor: pointer; }
 .checkbox-row label { color: #cbd5e1; font-size: 14px; cursor: pointer; }
 .res-options { margin-left: 28px; display: flex; flex-direction: column; gap: 10px; }
 .res-row { display: flex; align-items: center; gap: 10px; }
@@ -37,8 +35,6 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .res-row select, .res-row input[type=number] { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px; color: #f0fdf4; font-size: 14px; padding: 7px 10px; font-family: sans-serif; outline: none; width: 80px; }
 .enter-btn { width: 100%; background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: sans-serif; }
 .enter-btn:disabled { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); cursor: not-allowed; }
-
-/* HEADER */
 .header { background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 20; }
 .header-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 6px; }
 .header-left h1 { font-size: 15px; font-weight: 800; color: #f0fdf4; }
@@ -53,8 +49,6 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .week-tab .tab-date { display: block; font-size: 14px; font-weight: 800; color: #334155; margin-top: 1px; }
 .week-tab.active { color: #5eead4; border-bottom-color: #14b8a6; }
 .week-tab.active .tab-date { color: #f0fdf4; }
-
-/* COURTS */
 .courts-container { padding: 14px 14px 100px; background: linear-gradient(150deg,#0c1524 0%,#0a1f38 100%); min-height: calc(100vh - 130px); }
 .week-banner { background: rgba(20,184,166,0.07); border: 1px solid rgba(20,184,166,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
 .wb-label { font-size: 11px; color: #5eead4; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -68,6 +62,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .court-status { font-size: 11px; margin-top: 2px; font-weight: 600; }
 .court-status.open { color: #2dd4bf; }
 .court-status.full { color: #fb923c; }
+.court-status.noowner { color: #475569; }
 .court-meta { display: flex; align-items: center; gap: 8px; }
 .court-count { background: rgba(255,255,255,0.07); border-radius: 7px; padding: 3px 9px; color: #94a3b8; font-size: 12px; font-weight: 700; }
 .owner-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -84,8 +79,6 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .slot-player .sbtn { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.2); font-size: 13px; padding: 0 2px; font-family: sans-serif; }
 .make-owner-btn { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3) !important; border-radius: 8px; cursor: pointer; color: #fde68a; font-size: 11px; padding: 2px 7px; font-family: sans-serif; font-weight: 600; white-space: nowrap; }
 .av { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; flex-shrink: 0; }
-
-/* ACTION BUTTONS */
 .action-area { padding: 8px 12px 14px; display: flex; flex-direction: column; gap: 7px; }
 .btn { width: 100%; border-radius: 9px; padding: 10px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; border: none; }
 .btn-green { background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; }
@@ -94,13 +87,27 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .btn-yellow { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.4) !important; color: #fde68a; }
 .btn-indigo { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.35) !important; color: #a5b4fc; }
 .btn-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35) !important; color: #f87171; }
+.btn-disabled { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06) !important; color: rgba(255,255,255,0.15); cursor: not-allowed; }
 .no-courts-msg { color: #334155; font-size: 13px; text-align: center; padding: 30px 0; line-height: 1.6; }
-
-/* TOAST */
+.waitlist-card { background: rgba(99,102,241,0.05); border: 1.5px solid rgba(99,102,241,0.22); border-radius: 16px; margin-top: 6px; overflow: hidden; }
+.waitlist-header { padding: 12px 14px 8px; border-bottom: 1px solid rgba(99,102,241,0.12); }
+.waitlist-title { font-weight: 700; font-size: 15px; color: #c7d2fe; }
+.waitlist-count { font-size: 11px; color: #6366f1; margin-top: 2px; font-weight: 600; }
+.waitlist-explainer { font-size: 11px; color: rgba(165,180,252,0.5); padding: 8px 14px 8px; border-bottom: 1px solid rgba(99,102,241,0.08); line-height: 1.6; }
+.waitlist-slots { padding: 10px 12px 8px; display: flex; flex-direction: column; gap: 6px; }
+.waitlist-empty { font-size: 12px; color: rgba(99,102,241,0.35); padding: 4px 2px; }
+.waitlist-player { display: flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.18); border-radius: 18px; padding: 5px 10px 5px 6px; }
+.waitlist-player.me { background: rgba(99,102,241,0.14); border-color: rgba(99,102,241,0.35); }
+.waitlist-pos { font-size: 11px; color: #6366f1; font-weight: 800; min-width: 22px; text-align: center; }
+.waitlist-name { flex: 1; color: #c7d2fe; font-size: 13px; font-weight: 600; }
+.waitlist-name.me { color: #a5b4fc; }
+.waitlist-action { padding: 6px 12px 14px; }
+.btn-waitlist { width: 100%; border-radius: 9px; padding: 10px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.4) !important; color: #a5b4fc; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; }
+.btn-waitlist-leave { width: 100%; border-radius: 9px; padding: 10px; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.2) !important; color: #818cf8; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; }
+.moved-banner { background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.35); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; color: #a5b4fc; font-size: 13px; font-weight: 600; text-align: center; display: none; }
+.moved-banner.show { display: block; }
 .toast { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); background: #1e3a5f; color: #93c5fd; border-radius: 10px; padding: 8px 20px; font-weight: 600; font-size: 13px; z-index: 100; display: none; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 .admin-fab { position: fixed; bottom: 20px; right: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; z-index: 50; }
-
-/* MODALS */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
 .modal { background: #1e293b; border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 22px; width: 100%; max-width: 360px; }
@@ -125,11 +132,8 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .add-player-row input { flex: 1; margin-bottom: 0; }
 .add-player-row button { background: linear-gradient(135deg,#0e7490,#14b8a6); color: #fff; border: none; border-radius: 9px; padding: 0 16px; font-weight: 700; cursor: pointer; font-family: sans-serif; white-space: nowrap; }
 </style>
-
 </head>
 <body>
-
-<!-- LOGIN -->
 
 <div id="login-screen" class="active">
   <div class="login-card">
@@ -151,9 +155,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
       </div>
     </div>
     <div class="section-label">Who are you?</div>
-    <div class="player-grid" id="player-grid">
-      <div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">Loading players...</div>
-    </div>
+    <div class="player-grid" id="player-grid"><div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">Loading players...</div></div>
     <hr class="divider">
     <div class="reservation-section">
       <div class="section-label">Do you have a court reservation?</div>
@@ -163,25 +165,14 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
       </div>
       <div id="court-select-area" style="display:none;">
         <div class="res-options">
-          <div class="res-row">
-            <label>Court #:</label>
-            <input type="number" id="court-number" min="1" max="20" value="1" placeholder="1–20">
-          </div>
-          <div class="res-row">
-            <label>For:</label>
-            <select id="res-week">
-              <option value="this">This Thursday</option>
-              <option value="next">Next Thursday</option>
-            </select>
-          </div>
+          <div class="res-row"><label>Court #:</label><input type="number" id="court-number" min="1" max="20" value="1" placeholder="1-20"></div>
+          <div class="res-row"><label>For:</label><select id="res-week"><option value="this">This Thursday</option><option value="next">Next Thursday</option></select></div>
         </div>
       </div>
     </div>
     <button class="enter-btn" id="enter-btn" disabled onclick="enterApp()">Select your name above</button>
   </div>
 </div>
-
-<!-- APP -->
 
 <div id="app-screen" style="display:none;">
   <div class="header">
@@ -196,49 +187,30 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
       </div>
     </div>
     <div class="week-tabs">
-      <button class="week-tab active" id="tab-this" onclick="switchWeek('this')">
-        <span class="tab-label">This Thursday</span>
-        <span class="tab-date" id="tab-this-date">—</span>
-      </button>
-      <button class="week-tab" id="tab-next" onclick="switchWeek('next')">
-        <span class="tab-label">Next Thursday</span>
-        <span class="tab-date" id="tab-next-date">—</span>
-      </button>
+      <button class="week-tab active" id="tab-this" onclick="switchWeek('this')"><span class="tab-label">This Thursday</span><span class="tab-date" id="tab-this-date">—</span></button>
+      <button class="week-tab" id="tab-next" onclick="switchWeek('next')"><span class="tab-label">Next Thursday</span><span class="tab-date" id="tab-next-date">—</span></button>
     </div>
   </div>
-  <div class="courts-container" id="courts-container">
-    <div style="color:#475569;padding:20px;text-align:center;">Loading courts...</div>
-  </div>
+  <div class="moved-banner" id="moved-banner"></div>
+  <div class="courts-container" id="courts-container"><div style="color:#475569;padding:20px;text-align:center;">Loading courts...</div></div>
 </div>
 
 <div class="admin-fab" onclick="showAdminPin()">⚙️</div>
 <div class="toast" id="toast"></div>
 
-<!-- PIN MODAL -->
-
 <div class="modal-overlay" id="pin-modal">
   <div class="modal">
-    <h2>🔒 Admin Access</h2>
-    <div class="msub"></div>
+    <h2>🔒 Admin Access</h2><div class="msub"></div>
     <input type="password" id="pin-input" placeholder="Enter PIN" maxlength="10" onkeydown="if(event.key==='Enter')checkPin()">
-    <div class="btn-row">
-      <button class="mbtn-cancel" onclick="closeModal('pin-modal')">Cancel</button>
-      <button class="mbtn-confirm" onclick="checkPin()">Enter</button>
-    </div>
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('pin-modal')">Cancel</button><button class="mbtn-confirm" onclick="checkPin()">Enter</button></div>
   </div>
 </div>
 
-<!-- ADMIN MODAL -->
-
 <div class="modal-overlay" id="admin-modal">
   <div class="modal">
-    <h2>⚙️ Manage Players</h2>
-    <div class="msub">Add or remove players from the sign-up list.</div>
+    <h2>⚙️ Manage Players</h2><div class="msub">Add or remove players from the sign-up list.</div>
     <div class="player-list-admin" id="admin-player-list"></div>
-    <div class="add-player-row">
-      <input type="text" id="new-player-input" placeholder="Add new player..." maxlength="30">
-      <button onclick="addPlayer()">Add</button>
-    </div>
+    <div class="add-player-row"><input type="text" id="new-player-input" placeholder="Add new player..." maxlength="30"><button onclick="addPlayer()">Add</button></div>
     <div class="btn-row" style="margin-top:14px;">
       <button class="mbtn-cancel" onclick="closeModal('admin-modal')">Done</button>
       <button class="mbtn-red" onclick="purgeGhostCourts()">🧹 Remove Ghost Courts</button>
@@ -246,155 +218,73 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
   </div>
 </div>
 
-<!-- CHANGE COURT NUMBER MODAL -->
-
 <div class="modal-overlay" id="change-court-modal">
   <div class="modal">
-    <h2>✏️ Change Court Number</h2>
-    <div class="msub" id="change-court-sub"></div>
-    <input type="number" id="new-court-num" min="1" max="20" placeholder="New court # (1–20)">
-    <div class="btn-row">
-      <button class="mbtn-cancel" onclick="closeModal('change-court-modal')">Cancel</button>
-      <button class="mbtn-indigo" onclick="confirmChangeCourtNum()">Change</button>
-    </div>
+    <h2>✏️ Change Court Number</h2><div class="msub" id="change-court-sub"></div>
+    <input type="number" id="new-court-num" min="1" max="20" placeholder="New court # (1-20)">
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('change-court-modal')">Cancel</button><button class="mbtn-indigo" onclick="confirmChangeCourtNum()">Change</button></div>
   </div>
 </div>
-
-<!-- TRANSFER OWNER MODAL -->
 
 <div class="modal-overlay" id="transfer-modal">
   <div class="modal">
-    <h2>👑 Transfer Ownership</h2>
-    <div class="msub" id="transfer-sub"></div>
+    <h2>👑 Transfer Ownership</h2><div class="msub" id="transfer-sub"></div>
     <div class="player-pick-list" id="transfer-list"></div>
-    <div class="btn-row">
-      <button class="mbtn-cancel" onclick="closeModal('transfer-modal')">Cancel</button>
-    </div>
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('transfer-modal')">Cancel</button></div>
   </div>
 </div>
 
-<!-- CANCEL COURT MODAL -->
-
 <div class="modal-overlay" id="cancel-court-modal">
   <div class="modal">
-    <h2>🚫 Cancel Court Reservation</h2>
-    <div class="msub" id="cancel-court-sub"></div>
-    <div class="btn-row">
-      <button class="mbtn-cancel" onclick="closeModal('cancel-court-modal')">Keep it</button>
-      <button class="mbtn-red" onclick="confirmCancelCourt()">Yes, Cancel Court</button>
-    </div>
+    <h2>🚫 Cancel Court Reservation</h2><div class="msub" id="cancel-court-sub"></div>
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('cancel-court-modal')">Keep it</button><button class="mbtn-red" onclick="confirmCancelCourt()">Yes, Cancel Court</button></div>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot, arrayUnion, deleteField } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA_jvDV4Hvk5QnrreRstZUBr3WcZOA9nDQ",
-  authDomain: "bapgpickleball.firebaseapp.com",
-  projectId: "bapgpickleball"
-};
+const firebaseConfig = { apiKey:"AIzaSyA_jvDV4Hvk5QnrreRstZUBr3WcZOA9nDQ", authDomain:"bapgpickleball.firebaseapp.com", projectId:"bapgpickleball" };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const ADMIN_PIN = "1123";
-const MAX_PLAYERS = 4;
-const MAX_COURTS = 4;
-const COLORS = ["#f97316","#10b981","#3b82f6","#a855f7","#ec4899","#eab308","#06b6d4","#ef4444","#84cc16","#f43f5e","#14b8a6","#8b5cf6","#fb923c","#22c55e","#6366f1"];
+const ADMIN_PIN="1123", MAX_PLAYERS=4, MAX_COURTS=4;
+const COLORS=["#f97316","#14b8a6","#3b82f6","#a855f7","#ec4899","#eab308","#06b6d4","#ef4444","#84cc16","#f43f5e","#0e7490","#8b5cf6","#fb923c","#22c55e","#6366f1"];
 
-let currentPlayer = null;
-let currentWeek = "this";
-let players = [];
-let unsubscribe = null;
-let courtsData = {};
-let modalContext = {}; // store context for modal actions
+let currentPlayer=null, currentWeek="this", players=[], unsubscribe=null, courtsData={}, modalContext={};
 
-// ── DATES ─────────────────────────────────────────────
-function getThursday(offset=0) {
-  const now = new Date(), day = now.getDay();
-  const diff = (4-day+7)%7;
-  const thu = new Date(now);
-  thu.setDate(now.getDate()+diff+offset*7);
-  return thu;
-}
-function dateKey(d) { return d.toISOString().split("T")[0]; }
-function formatFull(d) { return d.toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"}); }
-function formatDay(d) { return d.toLocaleDateString("en-US",{day:"numeric"}); }
-function formatMonth(d) { return d.toLocaleDateString("en-US",{month:"short",year:"numeric"}); }
-function formatShort(d) { return d.toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
+// DATES
+function getThursday(offset=0){const now=new Date(),day=now.getDay(),diff=(4-day+7)%7,thu=new Date(now);thu.setDate(now.getDate()+diff+offset*7);return thu;}
+function dateKey(d){return d.toISOString().split("T")[0];}
+function formatFull(d){return d.toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"});}
+function formatDay(d){return d.toLocaleDateString("en-US",{day:"numeric"});}
+function formatMonth(d){return d.toLocaleDateString("en-US",{month:"short",year:"numeric"});}
+function formatShort(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"});}
+function getWeekKeys(){const t=getThursday(0),n=getThursday(1);return{this:dateKey(t),next:dateKey(n),thisDay:formatDay(t),thisMonth:formatMonth(t),thisFull:formatFull(t),thisShort:formatShort(t),nextDay:formatDay(n),nextMonth:formatMonth(n),nextFull:formatFull(n),nextShort:formatShort(n)};}
+function initDates(){const k=getWeekKeys();document.getElementById("this-day").textContent=k.thisDay;document.getElementById("this-month").textContent=k.thisMonth;document.getElementById("next-day").textContent=k.nextDay;document.getElementById("next-month").textContent=k.nextMonth;document.getElementById("tab-this-date").textContent=k.thisShort;document.getElementById("tab-next-date").textContent=k.nextShort;}
 
-function getWeekKeys() {
-  const t=getThursday(0), n=getThursday(1);
-  return {
-    this:dateKey(t), next:dateKey(n),
-    thisDay:formatDay(t), thisMonth:formatMonth(t), thisFull:formatFull(t), thisShort:formatShort(t),
-    nextDay:formatDay(n), nextMonth:formatMonth(n), nextFull:formatFull(n), nextShort:formatShort(n),
-  };
-}
+// PLAYERS
+async function loadPlayers(){const ref=doc(db,"config","players"),snap=await getDoc(ref);players=snap.exists()?(snap.data().list||[]):["Jonathan"];if(!snap.exists())await setDoc(ref,{list:players});renderPlayerGrid();}
+function renderPlayerGrid(){const g=document.getElementById("player-grid");if(!players.length){g.innerHTML='<div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">No players yet.</div>';return;}g.innerHTML=players.map(p=>`<button class="player-btn" onclick="selectPlayer('${p}')">${p}</button>`).join("");}
+window.selectPlayer=function(name){document.querySelectorAll(".player-btn").forEach(b=>b.classList.toggle("selected",b.textContent===name));currentPlayer=name;const btn=document.getElementById("enter-btn");btn.disabled=false;btn.textContent="Enter as "+name+" →";};
 
-function initDates() {
-  const k = getWeekKeys();
-  document.getElementById("this-day").textContent = k.thisDay;
-  document.getElementById("this-month").textContent = k.thisMonth;
-  document.getElementById("next-day").textContent = k.nextDay;
-  document.getElementById("next-month").textContent = k.nextMonth;
-  document.getElementById("tab-this-date").textContent = k.thisShort;
-  document.getElementById("tab-next-date").textContent = k.nextShort;
-}
-
-// ── PLAYERS ───────────────────────────────────────────
-async function loadPlayers() {
-  const ref = doc(db,"config","players");
-  const snap = await getDoc(ref);
-  players = snap.exists() ? (snap.data().list||[]) : ["Jonathan"];
-  if (!snap.exists()) await setDoc(ref,{list:players});
-  renderPlayerGrid();
-}
-
-function renderPlayerGrid() {
-  const grid = document.getElementById("player-grid");
-  if (!players.length) { grid.innerHTML='<div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">No players yet — use ⚙️ to add.</div>'; return; }
-  grid.innerHTML = players.map(p=>`<button class="player-btn" onclick="selectPlayer('${p}')">${p}</button>`).join("");
-}
-
-window.selectPlayer = function(name) {
-  document.querySelectorAll(".player-btn").forEach(b=>b.classList.toggle("selected",b.textContent===name));
-  currentPlayer = name;
-  const btn = document.getElementById("enter-btn");
-  btn.disabled = false;
-  btn.textContent = "Enter as "+name+" →";
-};
-
-// ── LOGIN ─────────────────────────────────────────────
-window.toggleReservation = function() {
-  document.getElementById("court-select-area").style.display =
-    document.getElementById("has-reservation").checked ? "block" : "none";
-};
-
-window.enterApp = async function() {
-  if (!currentPlayer) return;
-  const hasRes = document.getElementById("has-reservation").checked;
-  if (hasRes) {
-    const courtNum = parseInt(document.getElementById("court-number").value);
-    if (isNaN(courtNum)||courtNum<1||courtNum>20) { showToast("Enter a court number 1–20"); return; }
-    const resWeek = document.getElementById("res-week").value;
-    const keys = getWeekKeys();
-    const weekKey = keys[resWeek];
-    const courtId = "court"+courtNum;
-    const ref = doc(db,"weeks",weekKey);
-    const snap = await getDoc(ref);
-    let data = snap.exists() ? snap.data() : {};
-    const owned = Object.keys(data).filter(k=>data[k]?.owner);
-    if (!data[courtId] && owned.length>=MAX_COURTS) { showToast("Max 4 reserved courts per week!"); return; }
-    if (!data[courtId]) data[courtId]={owner:null,players:[]};
-    if (!data[courtId].owner) {
-      data[courtId].owner = currentPlayer;
-      if (!data[courtId].players.includes(currentPlayer)) data[courtId].players.push(currentPlayer);
-      await setDoc(ref,data,{merge:true});
-    } else if (data[courtId].owner!==currentPlayer) {
-      showToast("Court "+courtNum+" already has a reservation!"); return;
-    }
+// LOGIN
+window.toggleReservation=function(){document.getElementById("court-select-area").style.display=document.getElementById("has-reservation").checked?"block":"none";};
+window.enterApp=async function(){
+  if(!currentPlayer)return;
+  const hasRes=document.getElementById("has-reservation").checked;
+  if(hasRes){
+    const courtNum=parseInt(document.getElementById("court-number").value);
+    if(isNaN(courtNum)||courtNum<1||courtNum>20){showToast("Enter a court number 1-20");return;}
+    const resWeek=document.getElementById("res-week").value,keys=getWeekKeys(),weekKey=keys[resWeek],courtId="court"+courtNum;
+    const ref=doc(db,"weeks",weekKey),snap=await getDoc(ref);
+    let data=snap.exists()?snap.data():{};
+    const owned=Object.keys(data).filter(k=>k.startsWith("court")&&data[k]?.owner);
+    if(!data[courtId]&&owned.length>=MAX_COURTS){showToast("Max 4 reserved courts per week!");return;}
+    if(!data[courtId])data[courtId]={owner:null,players:[]};
+    if(!data[courtId].owner){data[courtId].owner=currentPlayer;if(!data[courtId].players.includes(currentPlayer))data[courtId].players.push(currentPlayer);await setDoc(ref,data,{merge:true});}
+    else if(data[courtId].owner!==currentPlayer){showToast("Court "+courtNum+" already has a reservation!");return;}
   }
   document.getElementById("login-screen").classList.remove("active");
   document.getElementById("login-screen").style.display="none";
@@ -402,57 +292,39 @@ window.enterApp = async function() {
   document.getElementById("me-badge").textContent=currentPlayer;
   switchWeek("this");
 };
+window.signOut=function(){currentPlayer=null;if(unsubscribe)unsubscribe();document.getElementById("login-screen").style.display="flex";document.getElementById("login-screen").classList.add("active");document.getElementById("app-screen").style.display="none";document.getElementById("has-reservation").checked=false;document.getElementById("court-select-area").style.display="none";document.querySelectorAll(".player-btn").forEach(b=>b.classList.remove("selected"));const btn=document.getElementById("enter-btn");btn.disabled=true;btn.textContent="Select your name above";};
 
-window.signOut = function() {
-  currentPlayer=null;
-  if(unsubscribe) unsubscribe();
-  document.getElementById("login-screen").style.display="flex";
-  document.getElementById("login-screen").classList.add("active");
-  document.getElementById("app-screen").style.display="none";
-  document.getElementById("has-reservation").checked=false;
-  document.getElementById("court-select-area").style.display="none";
-  document.querySelectorAll(".player-btn").forEach(b=>b.classList.remove("selected"));
-  const btn=document.getElementById("enter-btn");
-  btn.disabled=true; btn.textContent="Select your name above";
-};
-
-// ── WEEK TABS ─────────────────────────────────────────
-window.switchWeek = function(week) {
+// WEEK TABS
+window.switchWeek=function(week){
   currentWeek=week;
   document.getElementById("tab-this").classList.toggle("active",week==="this");
   document.getElementById("tab-next").classList.toggle("active",week==="next");
-  if(unsubscribe) unsubscribe();
-  const keys=getWeekKeys();
-  const weekKey=keys[week];
-  unsubscribe=onSnapshot(doc(db,"weeks",weekKey),snap=>{
+  if(unsubscribe)unsubscribe();
+  const keys=getWeekKeys(),weekKey=keys[week];
+  unsubscribe=onSnapshot(doc(db,"weeks",weekKey),async snap=>{
+    const prevData={...courtsData};
     courtsData=snap.exists()?snap.data():{};
+    await processWaitlist(weekKey,prevData);
     renderCourts(weekKey,keys[week+"Full"]);
   });
 };
 
-// ── RENDER ────────────────────────────────────────────
-function getColor(name){let h=0;for(let c of name)h=(h*31+c.charCodeAt(0))&0xffff;return COLORS[h%COLORS.length];}
-function ini(name){return name.trim().split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();}
+// RENDER
+function getColor(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))&0xffff;return COLORS[h%COLORS.length];}
+function ini(n){return n.trim().split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();}
 function av(name,size){const bg=getColor(name);return `<div class="av" style="width:${size}px;height:${size}px;background:${bg};font-size:${Math.round(size*.38)}px">${ini(name)}</div>`;}
 
-function renderCourts(weekKey, fullDate) {
-  const container = document.getElementById("courts-container");
-  const courtIds = Object.keys(courtsData).filter(k=>k.startsWith("court")).sort((a,b)=>parseInt(a.replace("court",""))-parseInt(b.replace("court","")));
+function renderCourts(weekKey,fullDate){
+  const container=document.getElementById("courts-container");
+  const courtIds=Object.keys(courtsData).filter(k=>k.startsWith("court")).sort((a,b)=>parseInt(a.replace("court",""))-parseInt(b.replace("court","")));
+  const waitlist=courtsData._waitlist||[];
 
-  let html = `<div class="week-banner">
-    <div><div class="wb-label">${currentWeek==="this"?"This Thursday":"Next Thursday"}</div><div class="wb-date">${fullDate}</div></div>
-    <div class="wb-time">6:00–8:00 PM</div>
-  </div>`;
+  let html=`<div class="week-banner"><div><div class="wb-label">${currentWeek==="this"?"This Thursday":"Next Thursday"}</div><div class="wb-date">${fullDate}</div></div><div class="wb-time">6:00-8:00 PM</div></div>`;
 
-  if (!courtIds.length) {
-    html+=`<div class="no-courts-msg">No courts reserved yet.<br><br>Sign out and check "Yes, I have a reservation" at login to add one.</div>`;
-    container.innerHTML=html; return;
-  }
+  const validCourts=courtIds.filter(id=>{const d=courtsData[id]||{};return d.owner||(d.players||[]).length>0;});
+  if(!validCourts.length){html+=`<div class="no-courts-msg">No courts reserved yet.<br><br>Sign out and check "Yes, I have a reservation" at login to add one.</div>`;}
 
-  courtIds.forEach(courtId=>{
-    // Skip ghost courts (no owner, no players)
-    const d=courtsData[courtId]||{};
-    if(!d.owner && !(d.players||[]).length) return;
+  validCourts.forEach(courtId=>{
     const num=courtId.replace("court","");
     const data=courtsData[courtId]||{};
     const owner=data.owner||null;
@@ -460,34 +332,30 @@ function renderCourts(weekKey, fullDate) {
     const isMine=courtPlayers.includes(currentPlayer);
     const iOwn=owner===currentPlayer;
     const full=courtPlayers.length>=MAX_PLAYERS;
+    const hasOwner=!!owner;
     const spots=MAX_PLAYERS-courtPlayers.length;
-    const cardClass=iOwn?"court-card i-own":owner?"court-card has-res":"court-card";
+    const cardClass=iOwn?"court-card i-own":hasOwner?"court-card has-res":"court-card";
 
-    // Owner row
-    const ownerHTML=owner
+    let statusClass=full?"full":hasOwner?"open":"noowner";
+    let statusText=full?"● Full":hasOwner?"● "+spots+" spot"+(spots!==1?"s":"")+" open":"● Awaiting owner";
+
+    const ownerHTML=hasOwner
       ?`<div class="owner-row"><span class="owner-label">Reserved by</span><div class="owner-chip">${av(owner,18)}<span style="font-size:12px">👑</span><span class="oname">${owner}</span></div></div>`
-      :`<div class="no-res">No reservation holder</div>`;
+      :`<div class="no-res">No reservation owner — sign-ups disabled</div>`;
 
-    // Slots — non-owners
     const nonOwners=courtPlayers.filter(p=>p!==owner);
     let slotsHTML="";
     for(let i=0;i<MAX_PLAYERS-1;i++){
       const p=nonOwners[i];
       if(p){
         const isMe=p===currentPlayer;
-        // Owner can make any signed-up player the new owner
         const makeOwnerBtn=iOwn&&!isMe?`<button class="sbtn make-owner-btn" onclick="showTransferToPlayer('${weekKey}','${courtId}','${p}')">Make owner</button>`:"";
-        slotsHTML+=`<div class="slot-player${isMe?" me":""}">
-          ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>
-          ${makeOwnerBtn}
-          ${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}
-        </div>`;
+        slotsHTML+=`<div class="slot-player${isMe?" me":""}"> ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>${makeOwnerBtn}${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}</div>`;
       } else {
         slotsHTML+=`<div class="slot-empty">open slot</div>`;
       }
     }
 
-    // Action buttons
     let actions="";
     if(iOwn){
       actions+=`<button class="btn btn-yellow" onclick="showGiveUpOwnership('${weekKey}','${courtId}','${num}')">👑 You own this court — transfer ownership</button>`;
@@ -495,6 +363,9 @@ function renderCourts(weekKey, fullDate) {
       actions+=`<button class="btn btn-red" onclick="showCancelCourt('${weekKey}','${courtId}','${num}')">🚫 Cancel This Court Reservation</button>`;
     } else if(isMine){
       actions+=`<button class="btn btn-green-outline" onclick="leaveCourtUI('${weekKey}','${courtId}')">✓ You're signed up — tap to leave</button>`;
+    } else if(!hasOwner){
+      // No owner — block sign-ups
+      actions+=`<button class="btn btn-disabled" disabled>No owner — sign-ups not available</button>`;
     } else {
       const mc=myCurrentCourt();
       const dis=(full||!!mc)?"disabled":"";
@@ -502,203 +373,182 @@ function renderCourts(weekKey, fullDate) {
       actions+=`<button class="btn btn-green" ${dis} onclick="joinCourtUI('${weekKey}','${courtId}')">${lbl}</button>`;
     }
 
-    html+=`<div class="${cardClass}">
-      <div class="court-header">
-        <div><div class="court-title">Court ${num}</div><div class="court-status ${full?"full":"open"}">${full?"● Full":"● "+spots+" spot"+(spots!==1?"s":"")+" open"}</div></div>
-        <div class="court-meta"><span class="court-count">${courtPlayers.length}/${MAX_PLAYERS}</span></div>
-      </div>
-      ${ownerHTML}
-      <div class="slots">${slotsHTML}</div>
-      <div class="action-area">${actions}</div>
-    </div>`;
+    html+=`<div class="${cardClass}"><div class="court-header"><div><div class="court-title">Court ${num}</div><div class="court-status ${statusClass}">${statusText}</div></div><div class="court-meta"><span class="court-count">${courtPlayers.length}/${MAX_PLAYERS}</span></div></div>${ownerHTML}<div class="slots">${slotsHTML}</div><div class="action-area">${actions}</div></div>`;
   });
+
+  // WAITLIST
+  const onWaitlist=waitlist.includes(currentPlayer);
+  const onCourt=!!myCurrentCourt();
+  let whtml=`<div class="waitlist-card">
+    <div class="waitlist-header">
+      <div class="waitlist-title">⏳ Waitlist</div>
+      <div class="waitlist-count">${waitlist.length} waiting</div>
+    </div>
+    <div class="waitlist-explainer">If all courts are full, add yourself here. When any spot opens up — someone drops out, a new court is added, or a court is cancelled — the first person on the waitlist is automatically moved in. First come, first served.</div>
+    <div class="waitlist-slots">`;
+  if(!waitlist.length){whtml+=`<div class="waitlist-empty">No one on the waitlist yet.</div>`;}
+  else{waitlist.forEach((p,i)=>{const isMe=p===currentPlayer;whtml+=`<div class="waitlist-player${isMe?" me":""}"><span class="waitlist-pos">#${i+1}</span>${av(p,24)}<span class="waitlist-name${isMe?" me":""}">${p}${isMe?" (you)":""}</span></div>`;});}
+  whtml+=`</div><div class="waitlist-action">`;
+  if(onWaitlist){whtml+=`<button class="btn-waitlist-leave" onclick="leaveWaitlist('${weekKey}')">✕ Remove me from waitlist</button>`;}
+  else if(!onCourt){whtml+=`<button class="btn-waitlist" onclick="joinWaitlist('${weekKey}')">+ Join Waitlist</button>`;}
+  else{whtml+=`<button class="btn-waitlist" disabled style="opacity:0.3;cursor:not-allowed;">Leave your court to join waitlist</button>`;}
+  whtml+=`</div></div>`;
+  html+=whtml;
 
   container.innerHTML=html;
 }
 
-function myCurrentCourt(){
-  for(const [id,data] of Object.entries(courtsData)){
-    if(data?.players?.includes(currentPlayer)) return id;
-  }
-  return null;
-}
+function myCurrentCourt(){for(const[id,data]of Object.entries(courtsData)){if(data?.players?.includes(currentPlayer))return id;}return null;}
 
-// ── COURT ACTIONS ─────────────────────────────────────
-window.joinCourtUI = async function(weekKey,courtId){
+// COURT ACTIONS
+window.joinCourtUI=async function(weekKey,courtId){
   const data=courtsData[courtId]||{owner:null,players:[]};
+  if(!data.owner){showToast("This court has no owner — sign-ups not allowed.");return;}
   if((data.players||[]).length>=MAX_PLAYERS){showToast("Court is full!");return;}
   if(myCurrentCourt()){showToast("Leave your current court first.");return;}
   await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,players:arrayUnion(currentPlayer)}},{merge:true});
 };
 
-window.leaveCourtUI = async function(weekKey,courtId){
+window.leaveCourtUI=async function(weekKey,courtId){
   const data=courtsData[courtId]||{};
   const newPlayers=(data.players||[]).filter(p=>p!==currentPlayer);
   const newOwner=data.owner===currentPlayer?null:data.owner;
   await setDoc(doc(db,"weeks",weekKey),{[courtId]:{owner:newOwner,players:newPlayers}},{merge:true});
 };
 
-// ── CHANGE COURT NUMBER ───────────────────────────────
-window.showGiveUpOwnership = async function(weekKey,courtId,num){
+// WAITLIST
+window.joinWaitlist=async function(weekKey){
+  const waitlist=courtsData._waitlist||[];
+  if(waitlist.includes(currentPlayer)){showToast("You're already on the waitlist.");return;}
+  if(myCurrentCourt()){showToast("Leave your court before joining the waitlist.");return;}
+  await setDoc(doc(db,"weeks",weekKey),{_waitlist:[...waitlist,currentPlayer]},{merge:true});
+};
+
+window.leaveWaitlist=async function(weekKey){
+  const waitlist=(courtsData._waitlist||[]).filter(p=>p!==currentPlayer);
+  await setDoc(doc(db,"weeks",weekKey),{_waitlist:waitlist},{merge:true});
+};
+
+async function processWaitlist(weekKey,prevData){
+  const waitlist=courtsData._waitlist||[];
+  if(!waitlist.length)return;
+  const courtIds=Object.keys(courtsData).filter(k=>k.startsWith("court")).sort((a,b)=>parseInt(a.replace("court",""))-parseInt(b.replace("court","")));
+  for(const courtId of courtIds){
+    const d=courtsData[courtId]||{};
+    if(!d.owner)continue;
+    const courtPlayers=d.players||[];
+    if(courtPlayers.length>=MAX_PLAYERS)continue;
+    const nextUp=waitlist.find(p=>!Object.values(courtsData).some(cd=>cd?.players?.includes(p)));
+    if(!nextUp)continue;
+    const newPlayers=[...courtPlayers,nextUp];
+    const newWaitlist=waitlist.filter(p=>p!==nextUp);
+    const snap=await getDoc(doc(db,"weeks",weekKey));
+    let fullData=snap.exists()?snap.data():{};
+    fullData[courtId]={...d,players:newPlayers};
+    fullData._waitlist=newWaitlist;
+    await setDoc(doc(db,"weeks",weekKey),fullData);
+    const num=courtId.replace("court","");
+    showMovedBanner(nextUp+" was moved from the waitlist to Court "+num+" 🎉");
+    break;
+  }
+}
+
+function showMovedBanner(msg){const b=document.getElementById("moved-banner");b.textContent=msg;b.classList.add("show");setTimeout(()=>b.classList.remove("show"),5000);}
+
+// GIVE UP OWNERSHIP
+window.showGiveUpOwnership=async function(weekKey,courtId,num){
   const data=courtsData[courtId]||{};
   const others=(data.players||[]).filter(p=>p!==currentPlayer);
   if(!others.length){
     if(window.confirm("No other players on this court. Remove your reservation entirely?")){
-      const snap=await getDoc(doc(db,"weeks",weekKey));
-      let d=snap.exists()?snap.data():{};
-      delete d[courtId];
-      await setDoc(doc(db,"weeks",weekKey),d);
+      const snap=await getDoc(doc(db,"weeks",weekKey));let d=snap.exists()?snap.data():{};delete d[courtId];await setDoc(doc(db,"weeks",weekKey),d);
     }
     return;
   }
   modalContext={weekKey,courtId,num};
   document.getElementById("transfer-sub").textContent="You're giving up ownership of Court "+num+". Who should be the new owner?";
-  document.getElementById("transfer-list").innerHTML=others.map(p=>`
-    <div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">
-      ${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span>
-    </div>`).join("");
+  document.getElementById("transfer-list").innerHTML=others.map(p=>`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`).join("");
   document.getElementById("transfer-modal").classList.add("open");
 };
 
-window.confirmTransferAndLeave = async function(toPlayer){
-  const {weekKey,courtId}=modalContext;
+window.confirmTransferAndLeave=async function(toPlayer){
+  const{weekKey,courtId}=modalContext;
   const data=courtsData[courtId]||{};
   await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,owner:toPlayer}},{merge:true});
-  closeModal("transfer-modal");
-  showToast("Ownership transferred to "+toPlayer);
+  closeModal("transfer-modal");showToast("Ownership transferred to "+toPlayer);
 };
 
-window.showChangeCourtNum = function(weekKey,courtId,currentNum){
+window.showTransferToPlayer=function(weekKey,courtId,toPlayer){
+  modalContext={weekKey,courtId};
+  const num=courtId.replace("court","");
+  document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to "+toPlayer+"?";
+  document.getElementById("transfer-list").innerHTML=`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${toPlayer}')">${av(toPlayer,32)}<span class="ppname">${toPlayer}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`;
+  document.getElementById("transfer-modal").classList.add("open");
+};
+
+// CHANGE COURT NUMBER
+window.showChangeCourtNum=function(weekKey,courtId,currentNum){
   modalContext={weekKey,courtId,currentNum};
-  document.getElementById("change-court-sub").textContent=`Currently Court ${currentNum}. Enter the new court number.`;
+  document.getElementById("change-court-sub").textContent="Currently Court "+currentNum+". Enter the new court number.";
   document.getElementById("new-court-num").value="";
   document.getElementById("change-court-modal").classList.add("open");
   setTimeout(()=>document.getElementById("new-court-num").focus(),100);
 };
 
-window.confirmChangeCourtNum = async function(){
-  const {weekKey,courtId,currentNum}=modalContext;
+window.confirmChangeCourtNum=async function(){
+  const{weekKey,courtId,currentNum}=modalContext;
   const newNum=parseInt(document.getElementById("new-court-num").value);
-  if(isNaN(newNum)||newNum<1||newNum>20){showToast("Enter a number 1–20");return;}
+  if(isNaN(newNum)||newNum<1||newNum>20){showToast("Enter a number 1-20");return;}
   if(newNum===parseInt(currentNum)){closeModal("change-court-modal");return;}
   const newCourtId="court"+newNum;
   const ref=doc(db,"weeks",weekKey);
-  const snap=await getDoc(ref);
-  let data=snap.exists()?snap.data():{};
+  const snap=await getDoc(ref);let data=snap.exists()?snap.data():{};
   if(data[newCourtId]){showToast("Court "+newNum+" already exists!");return;}
-  // Move data from old courtId to new courtId, delete old
-  const courtData=data[courtId]||{owner:null,players:[]};
-  data[newCourtId]=courtData;
-  data[courtId]=deleteField();
-  await setDoc(ref,data,{merge:true});
-  // deleteField doesn't work with merge on nested — do explicit delete
-  const cleanSnap=await getDoc(ref);
-  let cleanData=cleanSnap.exists()?cleanSnap.data():{};
-  delete cleanData[courtId];
-  await setDoc(ref,cleanData);
-  closeModal("change-court-modal");
-  showToast("Court moved to Court "+newNum);
+  data[newCourtId]=data[courtId]||{owner:null,players:[]};
+  delete data[courtId];
+  await setDoc(ref,data);
+  closeModal("change-court-modal");showToast("Court moved to Court "+newNum);
 };
 
-// ── TRANSFER OWNERSHIP ────────────────────────────────
-window.showTransferToPlayer = function(weekKey,courtId,toPlayer){
-  modalContext={weekKey,courtId};
-  const num=courtId.replace("court","");
-  document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to "+toPlayer+"?";
-  document.getElementById("transfer-list").innerHTML=`
-    <div class="player-pick-btn" onclick="confirmTransferAndLeave('${toPlayer}')">
-      ${av(toPlayer,32)}<span class="ppname">${toPlayer}</span><span style="color:#fde68a;font-size:18px">👑</span>
-    </div>`;
-  document.getElementById("transfer-modal").classList.add("open");
-};
-
-// ── CANCEL COURT ──────────────────────────────────────
-window.showCancelCourt = function(weekKey,courtId,num){
+// CANCEL COURT
+window.showCancelCourt=function(weekKey,courtId,num){
   modalContext={weekKey,courtId,num};
-  document.getElementById("cancel-court-sub").textContent=`This will remove Court ${num} entirely and notify everyone signed up that it's cancelled. Are you sure?`;
+  document.getElementById("cancel-court-sub").textContent="This will remove Court "+num+" entirely for everyone. Are you sure?";
   document.getElementById("cancel-court-modal").classList.add("open");
 };
 
-window.confirmCancelCourt = async function(){
-  const {weekKey,courtId}=modalContext;
-  const snap=await getDoc(doc(db,"weeks",weekKey));
-  let data=snap.exists()?snap.data():{};
+window.confirmCancelCourt=async function(){
+  const{weekKey,courtId}=modalContext;
+  const snap=await getDoc(doc(db,"weeks",weekKey));let data=snap.exists()?snap.data():{};
   delete data[courtId];
   await setDoc(doc(db,"weeks",weekKey),data);
-  closeModal("cancel-court-modal");
-  showToast("Court reservation cancelled");
+  closeModal("cancel-court-modal");showToast("Court reservation cancelled");
 };
 
-// ── TOAST ─────────────────────────────────────────────
+// TOAST & MODALS
 let toastTimer;
-window.showToast=function(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg; t.style.display="block";
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.style.display="none",2500);
-};
-
-// ── MODALS ────────────────────────────────────────────
+window.showToast=function(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display="none",2500);};
 window.closeModal=function(id){document.getElementById(id).classList.remove("open");};
+window.showAdminPin=function(){document.getElementById("pin-modal").classList.add("open");document.getElementById("pin-input").value="";setTimeout(()=>document.getElementById("pin-input").focus(),100);};
+window.checkPin=function(){if(document.getElementById("pin-input").value===ADMIN_PIN){closeModal("pin-modal");showAdminPanel();}else showToast("Wrong PIN");};
 
-window.showAdminPin=function(){
-  document.getElementById("pin-modal").classList.add("open");
-  document.getElementById("pin-input").value="";
-  setTimeout(()=>document.getElementById("pin-input").focus(),100);
-};
-window.checkPin=function(){
-  if(document.getElementById("pin-input").value===ADMIN_PIN){
-    closeModal("pin-modal"); showAdminPanel();
-  } else showToast("Wrong PIN");
-};
-
-function showAdminPanel(){
-  renderAdminList();
-  document.getElementById("admin-modal").classList.add("open");
-}
-function renderAdminList(){
-  const list=document.getElementById("admin-player-list");
-  list.innerHTML=players.map((p,i)=>`<div class="player-list-item"><span>${p}</span><button onclick="removePlayer(${i})">✕</button></div>`).join("")||'<div style="color:#475569;font-size:13px;padding:8px 0;">No players yet.</div>';
-}
-window.removePlayer=async function(i){
-  players.splice(i,1);
-  await setDoc(doc(db,"config","players"),{list:players});
-  renderAdminList(); renderPlayerGrid();
-};
-window.addPlayer=async function(){
-  const input=document.getElementById("new-player-input");
-  const name=input.value.trim();
-  if(!name||players.includes(name)) return;
-  players.push(name); players.sort();
-  await setDoc(doc(db,"config","players"),{list:players});
-  input.value="";
-  renderAdminList(); renderPlayerGrid();
-};
+function showAdminPanel(){renderAdminList();document.getElementById("admin-modal").classList.add("open");}
+function renderAdminList(){const list=document.getElementById("admin-player-list");list.innerHTML=players.map((p,i)=>`<div class="player-list-item"><span>${p}</span><button onclick="removePlayer(${i})">✕</button></div>`).join("")||'<div style="color:#475569;font-size:13px;padding:8px 0;">No players yet.</div>';}
+window.removePlayer=async function(i){players.splice(i,1);await setDoc(doc(db,"config","players"),{list:players});renderAdminList();renderPlayerGrid();};
+window.addPlayer=async function(){const input=document.getElementById("new-player-input"),name=input.value.trim();if(!name||players.includes(name))return;players.push(name);players.sort();await setDoc(doc(db,"config","players"),{list:players});input.value="";renderAdminList();renderPlayerGrid();};
 document.getElementById("new-player-input").addEventListener("keydown",e=>{if(e.key==="Enter")window.addPlayer();});
 
-// ── PURGE GHOST COURTS ───────────────────────────────
-window.purgeGhostCourts = async function(){
-  const keys = getWeekKeys();
-  let cleaned = 0;
-  for (const weekKey of [keys.this, keys.next]) {
-    const snap = await getDoc(doc(db,"weeks",weekKey));
-    if (!snap.exists()) continue;
-    let data = snap.data();
-    let changed = false;
-    for (const courtId of Object.keys(data)) {
-      const d = data[courtId]||{};
-      if (!d.owner && !(d.players||[]).length) {
-        delete data[courtId];
-        changed = true;
-        cleaned++;
-      }
-    }
-    if (changed) await setDoc(doc(db,"weeks",weekKey), data);
+window.purgeGhostCourts=async function(){
+  const keys=getWeekKeys();let cleaned=0;
+  for(const weekKey of[keys.this,keys.next]){
+    const snap=await getDoc(doc(db,"weeks",weekKey));if(!snap.exists())continue;
+    let data=snap.data();let changed=false;
+    for(const courtId of Object.keys(data)){if(!courtId.startsWith("court"))continue;const d=data[courtId]||{};if(!d.owner&&!(d.players||[]).length){delete data[courtId];changed=true;cleaned++;}}
+    if(changed)await setDoc(doc(db,"weeks",weekKey),data);
   }
-  showToast(cleaned > 0 ? "Removed "+cleaned+" ghost court(s)" : "No ghost courts found");
+  showToast(cleaned>0?"Removed "+cleaned+" ghost court(s)":"No ghost courts found");
 };
 
-// ── INIT ──────────────────────────────────────────────
 initDates();
 loadPlayers();
 </script>
