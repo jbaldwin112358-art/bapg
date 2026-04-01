@@ -9,20 +9,24 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #f1f5f9; }
 
-/* SCREENS */
-.screen { display: none; }
-.screen.active { display: block; }
-
 /* LOGIN */
 #login-screen { min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(150deg,#0f172a 0%,#083d28 100%); }
 #login-screen.active { display: flex; }
-.login-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 36px 24px; width: 100%; max-width: 380px; text-align: center; }
-.login-card .logo { font-size: 42px; margin-bottom: 6px; }
+.login-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 28px 22px; width: 100%; max-width: 380px; text-align: center; }
+.login-card .logo { font-size: 38px; margin-bottom: 4px; }
 .login-card h1 { font-size: 20px; font-weight: 800; color: #f0fdf4; margin-bottom: 2px; }
-.login-card h2 { font-size: 13px; color: #6ee7b7; margin-bottom: 6px; font-weight: 500; }
-.login-card .session-info { font-size: 12px; color: #64748b; margin-bottom: 24px; }
-.login-card .section-label { font-size: 12px; color: #94a3b8; text-align: left; margin-bottom: 8px; font-weight: 600; }
-.player-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; max-height: 240px; overflow-y: auto; }
+.login-card h2 { font-size: 12px; color: #6ee7b7; margin-bottom: 14px; font-weight: 500; }
+
+/* Date cards on login */
+.date-cards { display: flex; gap: 8px; margin-bottom: 20px; }
+.date-card { flex: 1; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px; padding: 10px 8px; text-align: center; }
+.date-card .dc-label { font-size: 10px; color: #6ee7b7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.date-card .dc-day { font-size: 22px; font-weight: 800; color: #f0fdf4; line-height: 1; }
+.date-card .dc-month { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+.date-card .dc-time { font-size: 11px; color: #6ee7b7; margin-top: 3px; font-weight: 600; }
+
+.section-label { font-size: 12px; color: #94a3b8; text-align: left; margin-bottom: 8px; font-weight: 600; }
+.player-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; max-height: 220px; overflow-y: auto; }
 .player-btn { background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 8px; color: #cbd5e1; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
 .player-btn:hover, .player-btn.selected { background: rgba(16,185,129,0.15); border-color: #10b981; color: #a7f3d0; }
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
@@ -30,29 +34,37 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
 .checkbox-row input[type=checkbox] { width: 18px; height: 18px; accent-color: #10b981; cursor: pointer; }
 .checkbox-row label { color: #cbd5e1; font-size: 14px; cursor: pointer; }
-.court-select-row { display: flex; align-items: center; gap: 10px; margin-left: 28px; margin-bottom: 4px; }
-.court-select-row label { color: #94a3b8; font-size: 13px; white-space: nowrap; }
-.court-select-row select { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px; color: #f0fdf4; font-size: 14px; padding: 6px 10px; font-family: sans-serif; outline: none; }
+.res-options { margin-left: 28px; display: flex; flex-direction: column; gap: 10px; }
+.res-row { display: flex; align-items: center; gap: 10px; }
+.res-row label { color: #94a3b8; font-size: 13px; white-space: nowrap; }
+.res-row select, .res-row input[type=number] { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px; color: #f0fdf4; font-size: 14px; padding: 7px 10px; font-family: sans-serif; outline: none; width: 80px; }
 .enter-btn { width: 100%; background: linear-gradient(135deg,#059669,#10b981); color: #fff; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: sans-serif; }
 .enter-btn:disabled { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); cursor: not-allowed; }
 
 /* HEADER */
-.header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 20; }
+.header { background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 20; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 6px; }
 .header-left h1 { font-size: 15px; font-weight: 800; color: #f0fdf4; }
 .header-left h1 span { color: #10b981; }
-.header-left p { font-size: 11px; color: #64748b; margin-top: 1px; }
+.header-left p { font-size: 10px; color: #475569; margin-top: 1px; }
 .header-right { display: flex; align-items: center; gap: 8px; }
 .me-badge { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 20px; padding: 4px 10px; color: #a7f3d0; font-size: 12px; font-weight: 600; }
 .signout-btn { background: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: rgba(255,255,255,0.35); padding: 4px 10px; cursor: pointer; font-size: 11px; font-family: sans-serif; }
 
 /* WEEK TABS */
-.week-tabs { display: flex; padding: 12px 16px 0; gap: 8px; background: rgba(0,0,0,0.3); }
-.week-tab { flex: 1; padding: 10px; border-radius: 10px 10px 0 0; border: 1px solid rgba(255,255,255,0.08); border-bottom: none; background: rgba(255,255,255,0.03); color: #64748b; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; font-family: sans-serif; transition: all 0.15s; }
-.week-tab.active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+.week-tabs { display: flex; padding: 0 16px; gap: 8px; }
+.week-tab { flex: 1; padding: 0; border-radius: 0; border: none; border-bottom: 2px solid transparent; background: none; color: #475569; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; font-family: sans-serif; transition: all 0.15s; padding: 8px 4px; }
+.week-tab .tab-label { display: block; }
+.week-tab .tab-date { display: block; font-size: 14px; font-weight: 800; color: #334155; margin-top: 1px; }
+.week-tab.active { color: #6ee7b7; border-bottom-color: #10b981; }
+.week-tab.active .tab-date { color: #f0fdf4; }
 
 /* COURTS */
 .courts-container { padding: 14px 14px 80px; background: linear-gradient(150deg,#0f172a 0%,#083d28 100%); min-height: calc(100vh - 130px); }
-.week-label { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; font-weight: 700; }
+.week-banner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+.week-banner .wb-label { font-size: 11px; color: #6ee7b7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.week-banner .wb-date { font-size: 16px; font-weight: 800; color: #f0fdf4; }
+.week-banner .wb-time { font-size: 12px; color: #94a3b8; }
 .court-card { background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.09); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: border-color 0.2s; }
 .court-card.has-reservation { border-color: rgba(16,185,129,0.35); }
 .court-card.i-own { border-color: #10b981; box-shadow: 0 0 20px rgba(16,185,129,0.12); }
@@ -67,8 +79,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .owner-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .owner-label { font-size: 11px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .owner-chip { display: flex; align-items: center; gap: 6px; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); border-radius: 14px; padding: 4px 10px 4px 6px; }
-.owner-chip .name { font-size: 12px; color: #fde68a; font-weight: 600; }
-.owner-chip .crown { font-size: 12px; }
+.owner-chip .oname { font-size: 12px; color: #fde68a; font-weight: 600; }
 .no-reservation { font-size: 12px; color: #334155; font-style: italic; padding: 10px 14px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .slots { padding: 10px 12px 8px; display: flex; flex-direction: column; gap: 6px; }
 .slot-empty { height: 36px; border-radius: 18px; border: 1.5px dashed rgba(255,255,255,0.08); display: flex; align-items: center; padding-left: 12px; color: rgba(255,255,255,0.15); font-size: 12px; }
@@ -83,13 +94,13 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .join-btn:disabled { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.18); cursor: not-allowed; }
 .here-btn { width: 100%; border-radius: 9px; padding: 10px; background: rgba(16,185,129,0.08); border: 1px solid #10b981; color: #34d399; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; }
 .owner-btn { width: 100%; border-radius: 9px; padding: 10px; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.4); color: #fde68a; font-weight: 700; font-size: 13px; cursor: pointer; font-family: sans-serif; }
+.no-courts-msg { color: #334155; font-size: 13px; text-align: center; padding: 30px 0; line-height: 1.6; }
 
 /* TOAST */
 .toast { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); background: #1e3a5f; color: #93c5fd; border-radius: 10px; padding: 8px 20px; font-weight: 600; font-size: 13px; z-index: 100; display: none; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 
 /* ADMIN */
-.admin-fab { position: fixed; bottom: 20px; right: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: none; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; z-index: 50; }
-.admin-fab.visible { display: flex; }
+.admin-fab { position: fixed; bottom: 20px; right: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; z-index: 50; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
 .modal { background: #1e293b; border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 24px; width: 100%; max-width: 360px; }
@@ -99,7 +110,6 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .modal .btn-row button { flex: 1; padding: 10px; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: sans-serif; border: none; }
 .modal .cancel-btn { background: rgba(255,255,255,0.07); color: #94a3b8; }
 .modal .confirm-btn { background: linear-gradient(135deg,#059669,#10b981); color: #fff; }
-.modal .danger-btn { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3) !important; }
 .player-list-admin { max-height: 200px; overflow-y: auto; margin-bottom: 12px; }
 .player-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .player-list-item span { color: #cbd5e1; font-size: 14px; }
@@ -118,10 +128,25 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
   <div class="login-card">
     <div class="logo">🥒</div>
     <h1>BAPG Court Sign Up</h1>
-    <h2>Bad Ass Pickleball Group</h2>
-    <p class="session-info" id="session-info">Loading sessions...</p>
+    <h2>Bad Ass Pickleball Group · Thursdays 6–8pm</h2>
 
 ```
+<!-- Date cards -->
+<div class="date-cards" id="date-cards">
+  <div class="date-card">
+    <div class="dc-label">This Thursday</div>
+    <div class="dc-day" id="this-day">—</div>
+    <div class="dc-month" id="this-month">—</div>
+    <div class="dc-time">6:00 – 8:00 PM</div>
+  </div>
+  <div class="date-card">
+    <div class="dc-label">Next Thursday</div>
+    <div class="dc-day" id="next-day">—</div>
+    <div class="dc-month" id="next-month">—</div>
+    <div class="dc-time">6:00 – 8:00 PM</div>
+  </div>
+</div>
+
 <div class="section-label">Who are you?</div>
 <div class="player-grid" id="player-grid">
   <div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">Loading players...</div>
@@ -136,14 +161,18 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
     <label for="has-reservation">Yes, I have a reservation</label>
   </div>
   <div id="court-select-area" style="display:none;">
-    <div class="court-select-row">
-      <label>Court number:</label>
-      <select id="court-number">
-        <option value="1">Court 1</option>
-        <option value="2">Court 2</option>
-        <option value="3">Court 3</option>
-        <option value="4">Court 4</option>
-      </select>
+    <div class="res-options">
+      <div class="res-row">
+        <label>Court #:</label>
+        <input type="number" id="court-number" min="1" max="20" value="1" placeholder="1–20">
+      </div>
+      <div class="res-row">
+        <label>For:</label>
+        <select id="res-week">
+          <option value="this">This Thursday</option>
+          <option value="next">Next Thursday</option>
+        </select>
+      </div>
     </div>
   </div>
 </div>
@@ -158,19 +187,26 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 
 <div id="app-screen" style="display:none;">
   <div class="header">
-    <div class="header-left">
-      <h1>BAPG <span>Court Sign Up</span></h1>
-      <p>Thursdays 6–8pm · Bad Ass Pickleball Group</p>
+    <div class="header-top">
+      <div class="header-left">
+        <h1>BAPG <span>Court Sign Up</span></h1>
+        <p>Bad Ass Pickleball Group · Thursdays 6–8pm</p>
+      </div>
+      <div class="header-right">
+        <span class="me-badge" id="me-badge"></span>
+        <button class="signout-btn" onclick="signOut()">Sign out</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span class="me-badge" id="me-badge"></span>
-      <button class="signout-btn" onclick="signOut()">Sign out</button>
+    <div class="week-tabs">
+      <button class="week-tab active" id="tab-this" onclick="switchWeek('this')">
+        <span class="tab-label">This Thursday</span>
+        <span class="tab-date" id="tab-this-date">—</span>
+      </button>
+      <button class="week-tab" id="tab-next" onclick="switchWeek('next')">
+        <span class="tab-label">Next Thursday</span>
+        <span class="tab-date" id="tab-next-date">—</span>
+      </button>
     </div>
-  </div>
-
-  <div class="week-tabs">
-    <button class="week-tab active" id="tab-this" onclick="switchWeek('this')">This Thursday</button>
-    <button class="week-tab" id="tab-next" onclick="switchWeek('next')">Next Thursday</button>
   </div>
 
   <div class="courts-container" id="courts-container">
@@ -180,7 +216,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 
 <!-- ADMIN FAB -->
 
-<div class="admin-fab visible" id="admin-fab" onclick="showAdminPin()">⚙️</div>
+<div class="admin-fab" id="admin-fab" onclick="showAdminPin()">⚙️</div>
 
 <!-- TOAST -->
 
@@ -217,7 +253,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_jvDV4Hvk5QnrreRstZUBr3WcZOA9nDQ",
@@ -230,6 +266,7 @@ const db = getFirestore(app);
 
 const ADMIN_PIN = "1123";
 const MAX_PLAYERS = 4;
+const MAX_COURTS = 4;
 const COLORS = ["#f97316","#10b981","#3b82f6","#a855f7","#ec4899","#eab308","#06b6d4","#ef4444","#84cc16","#f43f5e","#14b8a6","#8b5cf6","#fb923c","#22c55e","#6366f1"];
 
 let currentPlayer = null;
@@ -248,23 +285,34 @@ function getThursday(offset = 0) {
   return thu;
 }
 
-function dateKey(d) {
-  return d.toISOString().split("T")[0];
+function dateKey(d) { return d.toISOString().split("T")[0]; }
+
+function formatFull(d) {
+  return d.toLocaleDateString("en-US", { weekday:"short", month:"long", day:"numeric" });
 }
 
-function formatDate(d) {
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
+function formatDay(d) { return d.toLocaleDateString("en-US", { day:"numeric" }); }
+function formatMonth(d) { return d.toLocaleDateString("en-US", { month:"short", year:"numeric" }); }
+function formatShort(d) { return d.toLocaleDateString("en-US", { month:"short", day:"numeric" }); }
 
 function getWeekKeys() {
-  const thisThursday = getThursday(0);
-  const nextThursday = getThursday(1);
+  const t = getThursday(0), n = getThursday(1);
   return {
-    this: dateKey(thisThursday),
-    next: dateKey(nextThursday),
-    thisLabel: "This Thursday · " + formatDate(thisThursday),
-    nextLabel: "Next Thursday · " + formatDate(nextThursday)
+    this: dateKey(t), next: dateKey(n),
+    thisDay: formatDay(t), thisMonth: formatMonth(t), thisFull: formatFull(t), thisShort: formatShort(t),
+    nextDay: formatDay(n), nextMonth: formatMonth(n), nextFull: formatFull(n), nextShort: formatShort(n),
   };
+}
+
+// ── INIT DATES ────────────────────────────────────────
+function initDates() {
+  const k = getWeekKeys();
+  document.getElementById("this-day").textContent = k.thisDay;
+  document.getElementById("this-month").textContent = k.thisMonth;
+  document.getElementById("next-day").textContent = k.nextDay;
+  document.getElementById("next-month").textContent = k.nextMonth;
+  document.getElementById("tab-this-date").textContent = k.thisShort;
+  document.getElementById("tab-next-date").textContent = k.nextShort;
 }
 
 // ── PLAYERS ───────────────────────────────────────────
@@ -274,7 +322,7 @@ async function loadPlayers() {
   if (snap.exists()) {
     players = snap.data().list || [];
   } else {
-    players = ["Jonathan","Player 2","Player 3","Player 4","Player 5"];
+    players = ["Jonathan"];
     await setDoc(ref, { list: players });
   }
   renderPlayerGrid();
@@ -282,7 +330,7 @@ async function loadPlayers() {
 
 function renderPlayerGrid() {
   const grid = document.getElementById("player-grid");
-  if (!players.length) { grid.innerHTML = '<div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">No players yet — use admin to add.</div>'; return; }
+  if (!players.length) { grid.innerHTML = '<div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">No players yet — use ⚙️ to add.</div>'; return; }
   grid.innerHTML = players.map(p => `<button class="player-btn" onclick="selectPlayer('${p}')">${p}</button>`).join("");
 }
 
@@ -293,12 +341,6 @@ window.selectPlayer = function(name) {
   document.getElementById("enter-btn").textContent = "Enter as " + name + " →";
 };
 
-// ── SESSION INFO ──────────────────────────────────────
-function updateSessionInfo() {
-  const keys = getWeekKeys();
-  document.getElementById("session-info").textContent = keys.thisLabel + " & " + keys.nextLabel;
-}
-
 // ── LOGIN ─────────────────────────────────────────────
 window.toggleReservation = function() {
   const checked = document.getElementById("has-reservation").checked;
@@ -308,24 +350,36 @@ window.toggleReservation = function() {
 window.enterApp = async function() {
   if (!currentPlayer) return;
   const hasRes = document.getElementById("has-reservation").checked;
-  const courtNum = document.getElementById("court-number").value;
 
   if (hasRes) {
+    const courtNumRaw = parseInt(document.getElementById("court-number").value);
+    if (isNaN(courtNumRaw) || courtNumRaw < 1 || courtNumRaw > 20) {
+      showToast("Please enter a court number between 1 and 20.");
+      return;
+    }
+    const resWeek = document.getElementById("res-week").value;
     const keys = getWeekKeys();
-    const weekKey = keys[currentWeek] || keys.this;
-    // We'll set reservation on current week by default
-    const thisKey = keys.this;
-    const courtId = "court" + courtNum;
-    const ref = doc(db, "weeks", thisKey);
+    const weekKey = keys[resWeek];
+    const courtId = "court" + courtNumRaw;
+
+    const ref = doc(db, "weeks", weekKey);
     const snap = await getDoc(ref);
     let data = snap.exists() ? snap.data() : {};
+
+    // Check max 4 courts per week
+    const existingCourts = Object.keys(data).filter(k => data[k]?.owner);
+    if (!data[courtId] && existingCourts.length >= MAX_COURTS) {
+      showToast("Maximum 4 reserved courts per week!");
+      return;
+    }
+
     if (!data[courtId]) data[courtId] = { owner: null, players: [] };
     if (!data[courtId].owner) {
       data[courtId].owner = currentPlayer;
       if (!data[courtId].players.includes(currentPlayer)) data[courtId].players.push(currentPlayer);
       await setDoc(ref, data, { merge: true });
     } else if (data[courtId].owner !== currentPlayer) {
-      showToast("Court " + courtNum + " already has a reservation owner!");
+      showToast("Court " + courtNumRaw + " already has a reservation!");
       return;
     }
   }
@@ -361,75 +415,81 @@ window.switchWeek = function(week) {
   const ref = doc(db, "weeks", weekKey);
   unsubscribe = onSnapshot(ref, snap => {
     courtsData = snap.exists() ? snap.data() : {};
-    renderCourts(weekKey, keys[week + "Label"]);
+    renderCourts(weekKey, keys[week + "Full"]);
   });
 };
 
 // ── COURTS ────────────────────────────────────────────
-function getColor(name) {
-  let h = 0; for (let c of name) h = (h*31+c.charCodeAt(0))&0xffff;
-  return COLORS[h % COLORS.length];
-}
+function getColor(name) { let h=0; for(let c of name) h=(h*31+c.charCodeAt(0))&0xffff; return COLORS[h%COLORS.length]; }
 function ini(name) { return name.trim().split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
 function avHTML(name, size) {
   const bg = getColor(name);
   return `<div class="av" style="width:${size}px;height:${size}px;background:${bg};font-size:${Math.round(size*.38)}px">${ini(name)}</div>`;
 }
 
-function renderCourts(weekKey, label) {
+function renderCourts(weekKey, fullDate) {
   const container = document.getElementById("courts-container");
-  const courts = ["1","2","3","4"];
-  let html = `<div class="week-label">${label} · 6:00–8:00 PM</div>`;
-  let anyCourt = false;
 
-  courts.forEach(num => {
-    const courtId = "court" + num;
+  // Get all court IDs from data, sorted numerically
+  const courtIds = Object.keys(courtsData).filter(k => k.startsWith("court")).sort((a,b) => {
+    return parseInt(a.replace("court","")) - parseInt(b.replace("court",""));
+  });
+
+  let html = `<div class="week-banner">
+    <div>
+      <div class="wb-label">${currentWeek === "this" ? "This Thursday" : "Next Thursday"}</div>
+      <div class="wb-date">${fullDate}</div>
+    </div>
+    <div class="wb-time">6:00 – 8:00 PM</div>
+  </div>`;
+
+  if (!courtIds.length) {
+    html += `<div class="no-courts-msg">No courts reserved yet for ${currentWeek === "this" ? "this" : "next"} Thursday.<br><br>Sign out and check "Yes, I have a reservation" at login to add one.</div>`;
+    container.innerHTML = html;
+    return;
+  }
+
+  courtIds.forEach(courtId => {
+    const num = courtId.replace("court","");
     const data = courtsData[courtId];
-    if (!data && currentWeek === "next") return; // only show next week courts that have reservations
-    anyCourt = true;
-
     const owner = data?.owner || null;
     const courtPlayers = data?.players || [];
     const isMine = courtPlayers.includes(currentPlayer);
     const iOwn = owner === currentPlayer;
     const full = courtPlayers.length >= MAX_PLAYERS;
     const spots = MAX_PLAYERS - courtPlayers.length;
-
     const cardClass = iOwn ? "court-card i-own" : owner ? "court-card has-reservation" : "court-card";
 
-    // Owner row
     let ownerHTML = owner
-      ? `<div class="owner-row"><span class="owner-label">Reserved by</span><div class="owner-chip">${avHTML(owner,18)}<span class="crown">👑</span><span class="name">${owner}</span></div></div>`
+      ? `<div class="owner-row"><span class="owner-label">Reserved by</span><div class="owner-chip">${avHTML(owner,18)}<span style="font-size:12px">👑</span><span class="oname">${owner}</span></div></div>`
       : `<div class="no-reservation">No reservation — open court</div>`;
 
-    // Slots (show only non-owner players in slots, owner shown in header)
     const nonOwnerPlayers = courtPlayers.filter(p => p !== owner);
-    const slotCount = MAX_PLAYERS - 1; // 3 slots for non-owners
+    const slotCount = MAX_PLAYERS - 1;
     let slotsHTML = "";
     for (let i = 0; i < slotCount; i++) {
       const p = nonOwnerPlayers[i];
       if (p) {
         const isMe = p === currentPlayer;
         slotsHTML += `<div class="slot-player${isMe?" me":""}">
-          ${avHTML(p, 24)}
-          <span class="pname">${p}${isMe?" (you)":""}</span>
-          ${isMe ? `<button class="remove-btn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>` : ""}
+          ${avHTML(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>
+          ${isMe?`<button class="remove-btn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}
         </div>`;
       } else {
         slotsHTML += `<div class="slot-empty">open slot</div>`;
       }
     }
 
-    // Action button
     let actionHTML = "";
     if (iOwn) {
-      actionHTML = `<button class="owner-btn" onclick="leaveCourtUI('${weekKey}','${courtId}')">👑 You own this court — tap to remove reservation</button>`;
+      actionHTML = `<button class="owner-btn" onclick="leaveCourtUI('${weekKey}','${courtId}')">👑 You own this court — tap to remove</button>`;
     } else if (isMine) {
       actionHTML = `<button class="here-btn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✓ You're signed up — tap to leave</button>`;
     } else {
-      const disabled = full || !!myCurrentCourt(weekKey) ? "disabled" : "";
-      const label = full ? "Court Full" : myCurrentCourt(weekKey) ? "Leave your court first" : `Sign up for Court ${num}`;
-      actionHTML = `<button class="join-btn" ${disabled} onclick="joinCourtUI('${weekKey}','${courtId}')">` + label + `</button>`;
+      const mc = myCurrentCourt();
+      const dis = (full || !!mc) ? "disabled" : "";
+      const lbl = full ? "Court Full" : mc ? "Leave your court first" : `Sign up for Court ${num}`;
+      actionHTML = `<button class="join-btn" ${dis} onclick="joinCourtUI('${weekKey}','${courtId}')">${lbl}</button>`;
     }
 
     html += `<div class="${cardClass}">
@@ -440,7 +500,7 @@ function renderCourts(weekKey, label) {
         </div>
         <div class="court-meta">
           <span class="court-count">${courtPlayers.length}/${MAX_PLAYERS}</span>
-          ${courtPlayers.length > 0 ? `<button class="clear-btn" onclick="clearCourtUI('${weekKey}','${courtId}')">🗑</button>` : ""}
+          ${courtPlayers.length>0?`<button class="clear-btn" onclick="clearCourtUI('${weekKey}','${courtId}')">🗑</button>`:""}
         </div>
       </div>
       ${ownerHTML}
@@ -449,14 +509,10 @@ function renderCourts(weekKey, label) {
     </div>`;
   });
 
-  if (!anyCourt) {
-    html += `<div style="color:#334155;font-size:13px;text-align:center;padding:30px 0;">No courts reserved yet for next Thursday.<br>Sign up at login to create a reservation.</div>`;
-  }
-
   container.innerHTML = html;
 }
 
-function myCurrentCourt(weekKey) {
+function myCurrentCourt() {
   for (const [id, data] of Object.entries(courtsData)) {
     if (data?.players?.includes(currentPlayer)) return id;
   }
@@ -467,7 +523,7 @@ function myCurrentCourt(weekKey) {
 window.joinCourtUI = async function(weekKey, courtId) {
   const data = courtsData[courtId] || { owner: null, players: [] };
   if ((data.players||[]).length >= MAX_PLAYERS) return showToast("Court is full!");
-  if (myCurrentCourt(weekKey)) return showToast("Leave your current court first.");
+  if (myCurrentCourt()) return showToast("Leave your current court first.");
   const ref = doc(db, "weeks", weekKey);
   await setDoc(ref, { [courtId]: { ...data, players: arrayUnion(currentPlayer) } }, { merge: true });
 };
@@ -475,8 +531,8 @@ window.joinCourtUI = async function(weekKey, courtId) {
 window.leaveCourtUI = async function(weekKey, courtId) {
   const data = courtsData[courtId] || {};
   const ref = doc(db, "weeks", weekKey);
-  let newPlayers = (data.players||[]).filter(p => p !== currentPlayer);
-  let newOwner = data.owner === currentPlayer ? null : data.owner;
+  const newPlayers = (data.players||[]).filter(p => p !== currentPlayer);
+  const newOwner = data.owner === currentPlayer ? null : data.owner;
   await setDoc(ref, { [courtId]: { owner: newOwner, players: newPlayers } }, { merge: true });
 };
 
@@ -492,16 +548,19 @@ window.showToast = function(msg) {
   const t = document.getElementById("toast");
   t.textContent = msg; t.style.display = "block";
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.style.display = "none", 2500);
+  toastTimer = setTimeout(() => t.style.display="none", 2500);
 };
 
 // ── ADMIN ─────────────────────────────────────────────
-window.showAdminPin = function() { document.getElementById("pin-modal").classList.add("open"); document.getElementById("pin-input").value = ""; setTimeout(()=>document.getElementById("pin-input").focus(),100); };
+window.showAdminPin = function() {
+  document.getElementById("pin-modal").classList.add("open");
+  document.getElementById("pin-input").value = "";
+  setTimeout(()=>document.getElementById("pin-input").focus(),100);
+};
 window.checkPin = function() {
   if (document.getElementById("pin-input").value === ADMIN_PIN) {
-    closeModal("pin-modal");
-    showAdminPanel();
-  } else { showToast("Wrong PIN"); }
+    closeModal("pin-modal"); showAdminPanel();
+  } else showToast("Wrong PIN");
 };
 window.closeModal = function(id) { document.getElementById(id).classList.remove("open"); };
 
@@ -516,28 +575,25 @@ function renderAdminPlayerList() {
 }
 
 window.removePlayer = async function(i) {
-  players.splice(i, 1);
-  await setDoc(doc(db, "config", "players"), { list: players });
-  renderAdminPlayerList();
-  renderPlayerGrid();
+  players.splice(i,1);
+  await setDoc(doc(db,"config","players"),{list:players});
+  renderAdminPlayerList(); renderPlayerGrid();
 };
 
 window.addPlayer = async function() {
   const input = document.getElementById("new-player-input");
   const name = input.value.trim();
   if (!name || players.includes(name)) return;
-  players.push(name);
-  players.sort();
-  await setDoc(doc(db, "config", "players"), { list: players });
+  players.push(name); players.sort();
+  await setDoc(doc(db,"config","players"),{list:players});
   input.value = "";
-  renderAdminPlayerList();
-  renderPlayerGrid();
+  renderAdminPlayerList(); renderPlayerGrid();
 };
 
 document.getElementById("new-player-input").addEventListener("keydown", e => { if(e.key==="Enter") window.addPlayer(); });
 
 // ── INIT ──────────────────────────────────────────────
-updateSessionInfo();
+initDates();
 loadPlayers();
 </script>
 
