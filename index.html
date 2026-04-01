@@ -256,7 +256,7 @@ let currentPlayer=null, currentWeek="this", players=[], unsubscribe=null, courts
 
 // DATES
 function getThursday(offset=0){const now=new Date(),day=now.getDay(),diff=(4-day+7)%7,thu=new Date(now);thu.setDate(now.getDate()+diff+offset*7);return thu;}
-function dateKey(d){return d.toISOString().split("T")[0];}
+function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function formatFull(d){return d.toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"});}
 function formatDay(d){return d.toLocaleDateString("en-US",{day:"numeric"});}
 function formatMonth(d){return d.toLocaleDateString("en-US",{month:"short",year:"numeric"});}
