@@ -353,7 +353,13 @@ function renderCourts(weekKey,fullDate){
         const swapBtn=iOwn&&!isMe?`<button class="sbtn make-owner-btn" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.4);color:#a5b4fc" onclick="showSwapPlayer('${weekKey}','${courtId}','${p}')">🔄 Swap</button>`:"";
         slotsHTML+=`<div class="slot-player${isMe?" me":""}"> ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>${swapBtn}${makeOwnerBtn}${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}</div>`;
       } else {
-        slotsHTML+=`<div class="slot-empty">open slot</div>`;
+        if(iOwn){
+          slotsHTML+=`<div class="slot-empty" style="border-color:rgba(20,184,166,0.2);cursor:pointer;" onclick="showAddPlayer('${weekKey}','${courtId}')">
+            <span style="color:rgba(20,184,166,0.5);font-size:13px;font-weight:600;">+ Add player</span>
+          </div>`;
+        } else {
+          slotsHTML+=`<div class="slot-empty">open slot</div>`;
+        }
       }
     }
 
@@ -560,6 +566,16 @@ window.purgeGhostCourts=async function(){
   showToast(cleaned>0?"Removed "+cleaned+" ghost court(s)":"No ghost courts found");
 };
 
+// ADD PLAYER TO EMPTY SLOT
+window.showAddPlayer=function(weekKey,courtId){
+  modalContext={weekKey,courtId,outPlayer:null};
+  const allOnCourts=new Set(Object.values(courtsData).flatMap(d=>d.players||[]));
+  const eligible=players.filter(p=>!allOnCourts.has(p));
+  document.getElementById("swap-sub").textContent="Add a player to this court:";
+  document.getElementById("swap-list").innerHTML=eligible.map(p=>`<div class="player-pick-btn" onclick="confirmSwap('${p}')">${av(p,32)}<span class="ppname">${p}</span></div>`).join("")||'<div style="color:#475569;font-size:13px;padding:8px 0;">No available players to add.</div>';
+  document.getElementById("swap-modal").classList.add("open");
+};
+
 // SWAP PLAYER
 window.showSwapPlayer=function(weekKey,courtId,outPlayer){
   modalContext={weekKey,courtId,outPlayer};
@@ -573,13 +589,18 @@ window.showSwapPlayer=function(weekKey,courtId,outPlayer){
 window.confirmSwap=async function(inPlayer){
   const{weekKey,courtId,outPlayer}=modalContext;
   const data=courtsData[courtId]||{};
-  let newPlayers=(data.players||[]).map(p=>p===outPlayer?inPlayer:p);
-  // if inPlayer wasn't on the court already, they're now in
-  if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
-  const newOwner=data.owner===outPlayer?data.owner:data.owner; // owner unchanged
+  let newPlayers=[...(data.players||[])];
+  if(outPlayer){
+    // Swap mode — replace outPlayer with inPlayer
+    newPlayers=newPlayers.map(p=>p===outPlayer?inPlayer:p);
+    if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
+  } else {
+    // Add mode — just add inPlayer to the court
+    if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
+  }
   await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,players:newPlayers}},{merge:true});
   closeModal("swap-modal");
-  showToast(outPlayer+" swapped out for "+inPlayer);
+  showToast(outPlayer?outPlayer+" swapped out for "+inPlayer:inPlayer+" added to court");
 };
 
 initDates();
