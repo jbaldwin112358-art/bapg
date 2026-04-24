@@ -21,9 +21,13 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .dc-month { font-size: 12px; color: #94a3b8; margin-top: 2px; }
 .dc-time { font-size: 11px; color: #5eead4; margin-top: 3px; font-weight: 600; }
 .section-label { font-size: 12px; color: #94a3b8; text-align: left; margin-bottom: 8px; font-weight: 600; }
-.player-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; max-height: 220px; overflow-y: auto; }
+.player-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; max-height: 220px; overflow-y: auto; }
 .player-btn { background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 8px; color: #cbd5e1; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
 .player-btn.selected { background: rgba(20,184,166,0.15); border-color: #14b8a6; color: #99f6e4; }
+.new-player-login-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.new-player-login-row input { flex: 1; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 9px 12px; color: #f0fdf4; font-size: 14px; outline: none; font-family: sans-serif; }
+.new-player-login-row input::placeholder { color: rgba(255,255,255,0.25); }
+.new-player-login-row button { background: rgba(20,184,166,0.15); border: 1.5px solid rgba(20,184,166,0.4); border-radius: 10px; color: #5eead4; font-size: 13px; font-weight: 700; cursor: pointer; padding: 0 14px; font-family: sans-serif; white-space: nowrap; }
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
 .reservation-section { text-align: left; margin-bottom: 20px; }
 .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -88,6 +92,7 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
 .btn-indigo { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.35) !important; color: #a5b4fc; }
 .btn-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35) !important; color: #f87171; }
 .btn-disabled { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06) !important; color: rgba(255,255,255,0.15); cursor: not-allowed; }
+.btn-teal-outline { background: rgba(20,184,166,0.06); border: 1px solid rgba(20,184,166,0.3) !important; color: #5eead4; }
 .no-courts-msg { color: #334155; font-size: 13px; text-align: center; padding: 30px 0; line-height: 1.6; }
 .waitlist-card { background: rgba(99,102,241,0.05); border: 1.5px solid rgba(99,102,241,0.22); border-radius: 16px; margin-top: 6px; overflow: hidden; }
 .waitlist-header { padding: 12px 14px 8px; border-bottom: 1px solid rgba(99,102,241,0.12); }
@@ -156,12 +161,17 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
     </div>
     <div class="section-label">Who are you?</div>
     <div class="player-grid" id="player-grid"><div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">Loading players...</div></div>
+    <!-- Self-registration row -->
+    <div class="new-player-login-row">
+      <input type="text" id="new-player-login-input" placeholder="Not listed? Add your name…" maxlength="30">
+      <button onclick="addSelfToPlayers()">Add me</button>
+    </div>
     <hr class="divider">
     <div class="reservation-section">
       <div class="section-label">Do you have a court reservation?</div>
       <div class="checkbox-row">
         <input type="checkbox" id="has-reservation" onchange="toggleReservation()">
-        <label for="has-reservation">Yes, I have a reservation</label>
+        <label for="has-reservation">Yes, I reserved a court on CourtReserve</label>
       </div>
       <div id="court-select-area" style="display:none;">
         <div class="res-options">
@@ -241,6 +251,30 @@ body { min-height: 100vh; background: #0f172a; font-family: sans-serif; color: #
   </div>
 </div>
 
+<!-- SWAP PLAYER MODAL -->
+
+<div class="modal-overlay" id="swap-modal">
+  <div class="modal">
+    <h2>🔄 Swap Player</h2>
+    <div class="msub" id="swap-sub"></div>
+    <div class="player-pick-list" id="swap-list"></div>
+    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('swap-modal')">Cancel</button></div>
+  </div>
+</div>
+
+<!-- FILL FROM WAITLIST CONFIRM MODAL -->
+
+<div class="modal-overlay" id="fill-waitlist-modal">
+  <div class="modal">
+    <h2>⏳ Fill from Waitlist</h2>
+    <div class="msub" id="fill-waitlist-sub"></div>
+    <div class="btn-row">
+      <button class="mbtn-cancel" onclick="closeModal('fill-waitlist-modal')">Cancel</button>
+      <button class="mbtn-confirm" onclick="confirmFillFromWaitlist()">Confirm</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -268,6 +302,30 @@ function initDates(){const k=getWeekKeys();document.getElementById("this-day").t
 async function loadPlayers(){const ref=doc(db,"config","players"),snap=await getDoc(ref);players=snap.exists()?(snap.data().list||[]):["Jonathan"];if(!snap.exists())await setDoc(ref,{list:players});renderPlayerGrid();}
 function renderPlayerGrid(){const g=document.getElementById("player-grid");if(!players.length){g.innerHTML='<div style="color:#475569;font-size:13px;grid-column:1/-1;padding:10px 0;">No players yet.</div>';return;}g.innerHTML=players.map(p=>`<button class="player-btn" onclick="selectPlayer('${p}')">${p}</button>`).join("");}
 window.selectPlayer=function(name){document.querySelectorAll(".player-btn").forEach(b=>b.classList.toggle("selected",b.textContent===name));currentPlayer=name;const btn=document.getElementById("enter-btn");btn.disabled=false;btn.textContent="Enter as "+name+" →";};
+
+// SELF-REGISTRATION (no PIN needed)
+window.addSelfToPlayers=async function(){
+  const input=document.getElementById("new-player-login-input");
+  const name=input.value.trim();
+  if(!name){showToast("Enter your name first.");return;}
+  if(players.map(p=>p.toLowerCase()).includes(name.toLowerCase())){
+    // Name already exists — just select it
+    const existing=players.find(p=>p.toLowerCase()===name.toLowerCase());
+    window.selectPlayer(existing);
+    input.value="";
+    return;
+  }
+  players.push(name);
+  players.sort();
+  await setDoc(doc(db,"config","players"),{list:players});
+  input.value="";
+  renderPlayerGrid();
+  // Auto-select the new player
+  window.selectPlayer(name);
+  showToast(name+" added! Welcome to BAPG 🎉");
+};
+
+document.getElementById("new-player-login-input").addEventListener("keydown",e=>{if(e.key==="Enter")window.addSelfToPlayers();});
 
 // LOGIN
 window.toggleReservation=function(){document.getElementById("court-select-area").style.display=document.getElementById("has-reservation").checked?"block":"none";};
@@ -301,10 +359,8 @@ window.switchWeek=function(week){
   document.getElementById("tab-next").classList.toggle("active",week==="next");
   if(unsubscribe)unsubscribe();
   const keys=getWeekKeys(),weekKey=keys[week];
-  unsubscribe=onSnapshot(doc(db,"weeks",weekKey),async snap=>{
-    const prevData={...courtsData};
+  unsubscribe=onSnapshot(doc(db,"weeks",weekKey),snap=>{
     courtsData=snap.exists()?snap.data():{};
-    await processWaitlist(weekKey,prevData);
     renderCourts(weekKey,keys[week+"Full"]);
   });
 };
@@ -354,8 +410,11 @@ function renderCourts(weekKey,fullDate){
         slotsHTML+=`<div class="slot-player${isMe?" me":""}"> ${av(p,24)}<span class="pname">${p}${isMe?" (you)":""}</span>${swapBtn}${makeOwnerBtn}${isMe?`<button class="sbtn" onclick="leaveCourtUI('${weekKey}','${courtId}')">✕</button>`:""}</div>`;
       } else {
         if(iOwn){
-          slotsHTML+=`<div class="slot-empty" style="border-color:rgba(20,184,166,0.2);cursor:pointer;" onclick="showAddPlayer('${weekKey}','${courtId}')">
-            <span style="color:rgba(20,184,166,0.5);font-size:13px;font-weight:600;">+ Add player</span>
+          // Owner sees open slot with both "Add player" and "Fill from Waitlist" (if waitlist has anyone)
+          const hasWaiters=waitlist.length>0;
+          slotsHTML+=`<div class="slot-empty" style="border-color:rgba(20,184,166,0.2);cursor:pointer;height:auto;padding:6px 10px;gap:6px;display:flex;flex-wrap:wrap;align-items:center;">
+            <button style="background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.3);border-radius:8px;color:#5eead4;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:sans-serif;" onclick="showAddPlayer('${weekKey}','${courtId}')">+ Add player</button>
+            ${hasWaiters?`<button style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);border-radius:8px;color:#a5b4fc;font-size:12px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:sans-serif;" onclick="showFillFromWaitlist('${weekKey}','${courtId}')">⏳ Fill from Waitlist</button>`:''}
           </div>`;
         } else {
           slotsHTML+=`<div class="slot-empty">open slot</div>`;
@@ -371,7 +430,6 @@ function renderCourts(weekKey,fullDate){
     } else if(isMine){
       actions+=`<button class="btn btn-green-outline" onclick="leaveCourtUI('${weekKey}','${courtId}')">✓ You're signed up — tap to leave</button>`;
     } else if(!hasOwner){
-      // No owner — block sign-ups
       actions+=`<button class="btn btn-disabled" disabled>No owner — sign-ups not available</button>`;
     } else {
       const mc=myCurrentCourt();
@@ -391,7 +449,7 @@ function renderCourts(weekKey,fullDate){
       <div class="waitlist-title">⏳ Waitlist</div>
       <div class="waitlist-count">${waitlist.length} waiting</div>
     </div>
-    <div class="waitlist-explainer">If all courts are full, add yourself here. When any spot opens up — someone drops out, a new court is added, or a court is cancelled — the first person on the waitlist is automatically moved in. First come, first served.</div>
+    <div class="waitlist-explainer">If all courts are full, add yourself here. Court owners can fill open slots from the waitlist — first come, first served.</div>
     <div class="waitlist-slots">`;
   if(!waitlist.length){whtml+=`<div class="waitlist-empty">No one on the waitlist yet.</div>`;}
   else{waitlist.forEach((p,i)=>{const isMe=p===currentPlayer;whtml+=`<div class="waitlist-player${isMe?" me":""}"><span class="waitlist-pos">#${i+1}</span>${av(p,24)}<span class="waitlist-name${isMe?" me":""}">${p}${isMe?" (you)":""}</span></div>`;});}
@@ -436,31 +494,37 @@ window.leaveWaitlist=async function(weekKey){
   await setDoc(doc(db,"weeks",weekKey),{_waitlist:waitlist},{merge:true});
 };
 
-async function processWaitlist(weekKey,prevData){
+// FILL FROM WAITLIST — manual, owner-triggered, first-come-first-served
+window.showFillFromWaitlist=function(weekKey,courtId){
   const waitlist=courtsData._waitlist||[];
-  if(!waitlist.length)return;
-  const courtIds=Object.keys(courtsData).filter(k=>k.startsWith("court")).sort((a,b)=>parseInt(a.replace("court",""))-parseInt(b.replace("court","")));
-  for(const courtId of courtIds){
-    const d=courtsData[courtId]||{};
-    if(!d.owner)continue;
-    const courtPlayers=d.players||[];
-    if(courtPlayers.length>=MAX_PLAYERS)continue;
-    const nextUp=waitlist.find(p=>!Object.values(courtsData).some(cd=>cd?.players?.includes(p)));
-    if(!nextUp)continue;
-    const newPlayers=[...courtPlayers,nextUp];
-    const newWaitlist=waitlist.filter(p=>p!==nextUp);
-    const snap=await getDoc(doc(db,"weeks",weekKey));
-    let fullData=snap.exists()?snap.data():{};
-    fullData[courtId]={...d,players:newPlayers};
-    fullData._waitlist=newWaitlist;
-    await setDoc(doc(db,"weeks",weekKey),fullData);
-    const num=courtId.replace("court","");
-    showMovedBanner(nextUp+" was moved from the waitlist to Court "+num+" 🎉");
-    break;
-  }
-}
+  if(!waitlist.length){showToast("Nobody on the waitlist.");return;}
+  const data=courtsData[courtId]||{};
+  if((data.players||[]).length>=MAX_PLAYERS){showToast("Court is already full.");return;}
+  // Find first waitlisted person not already on a court
+  const nextUp=waitlist.find(p=>!Object.values(courtsData).some(cd=>cd?.players?.includes(p)));
+  if(!nextUp){showToast("Everyone on the waitlist is already on a court.");return;}
+  modalContext={weekKey,courtId,nextUp};
+  const num=courtId.replace("court","");
+  document.getElementById("fill-waitlist-sub").textContent=`Move ${nextUp} (#1 on waitlist) into Court ${num}?`;
+  document.getElementById("fill-waitlist-modal").classList.add("open");
+};
 
-function showMovedBanner(msg){const b=document.getElementById("moved-banner");b.textContent=msg;b.classList.add("show");setTimeout(()=>b.classList.remove("show"),5000);}
+window.confirmFillFromWaitlist=async function(){
+  const{weekKey,courtId,nextUp}=modalContext;
+  const snap=await getDoc(doc(db,"weeks",weekKey));
+  let fullData=snap.exists()?snap.data():{};
+  const data=fullData[courtId]||{};
+  const courtPlayers=data.players||[];
+  if(courtPlayers.length>=MAX_PLAYERS){showToast("Court is full.");closeModal("fill-waitlist-modal");return;}
+  const newPlayers=[...courtPlayers,nextUp];
+  const newWaitlist=(fullData._waitlist||[]).filter(p=>p!==nextUp);
+  fullData[courtId]={...data,players:newPlayers};
+  fullData._waitlist=newWaitlist;
+  await setDoc(doc(db,"weeks",weekKey),fullData);
+  closeModal("fill-waitlist-modal");
+  const num=courtId.replace("court","");
+  showToast(nextUp+" moved from waitlist to Court "+num+" 🎉");
+};
 
 // GIVE UP OWNERSHIP
 window.showGiveUpOwnership=async function(weekKey,courtId,num){
@@ -474,10 +538,9 @@ window.showGiveUpOwnership=async function(weekKey,courtId,num){
   }
   modalContext={weekKey,courtId,num};
   document.getElementById("transfer-sub").textContent="You're giving up ownership of Court "+num+". Who should be the new owner?";
-  // anyone registered not already on a court (excluding current owner)
   const allOnCourts=new Set(Object.values(courtsData).flatMap(d=>d.players||[]));
   const eligible=players.filter(p=>p!==currentPlayer&&!allOnCourts.has(p));
-  const alreadyOn=others; // players already on this court are also eligible
+  const alreadyOn=others;
   const combined=[...new Set([...alreadyOn,...eligible])].filter(p=>p!==currentPlayer);
   if(!combined.length){showToast("No eligible players to transfer to.");return;}
   document.getElementById("transfer-list").innerHTML=combined.map(p=>`<div class="player-pick-btn" onclick="confirmTransferAndLeave('${p}')">${av(p,32)}<span class="ppname">${p}</span><span style="color:#fde68a;font-size:18px">👑</span></div>`).join("");
@@ -492,10 +555,8 @@ window.confirmTransferAndLeave=async function(toPlayer){
 };
 
 window.showTransferToPlayer=function(weekKey,courtId,toPlayer){
-  // Show full pool — anyone not already on another court
   modalContext={weekKey,courtId};
   const num=courtId.replace("court","");
-  const courtPlayers=(courtsData[courtId]?.players||[]);
   const allOnCourts=new Set(Object.entries(courtsData).filter(([k])=>k!==courtId).flatMap(([,d])=>d.players||[]));
   const eligible=players.filter(p=>p!==currentPlayer&&!allOnCourts.has(p));
   document.getElementById("transfer-sub").textContent="Transfer ownership of Court "+num+" to:";
@@ -591,11 +652,9 @@ window.confirmSwap=async function(inPlayer){
   const data=courtsData[courtId]||{};
   let newPlayers=[...(data.players||[])];
   if(outPlayer){
-    // Swap mode — replace outPlayer with inPlayer
     newPlayers=newPlayers.map(p=>p===outPlayer?inPlayer:p);
     if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
   } else {
-    // Add mode — just add inPlayer to the court
     if(!newPlayers.includes(inPlayer))newPlayers.push(inPlayer);
   }
   await setDoc(doc(db,"weeks",weekKey),{[courtId]:{...data,players:newPlayers}},{merge:true});
@@ -607,15 +666,5 @@ initDates();
 loadPlayers();
 </script>
 
-<!-- SWAP PLAYER MODAL -->
-
-<div class="modal-overlay" id="swap-modal">
-  <div class="modal">
-    <h2>🔄 Swap Player</h2>
-    <div class="msub" id="swap-sub"></div>
-    <div class="player-pick-list" id="swap-list"></div>
-    <div class="btn-row"><button class="mbtn-cancel" onclick="closeModal('swap-modal')">Cancel</button></div>
-  </div>
-</div>
 </body>
 </html>
